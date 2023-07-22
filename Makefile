@@ -1,5 +1,5 @@
 run-dev:
-	docker compose -f ".docker/docker-compose-dev.yml" -p "sparcs-newbie-project-dev" up -d
+	docker compose -f ".docker/docker-compose-dev.yml" -p "madcamp-week4-db" up -d
 
 stop-dev:
-	docker compose -f ".docker/docker-compose-dev.yml" -p "sparcs-newbie-project-dev" down
+	docker compose -f ".docker/docker-compose-dev.yml" -p "madcamp-week4-db" down
