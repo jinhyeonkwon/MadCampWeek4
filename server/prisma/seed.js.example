@@ -1,0 +1,43 @@
+import { PrismaClient } from '@prisma/client'
+import process from 'process'
+import dotenv from 'dotenv'
+
+if (process.env.ENVIRONMENT === "DEVELOPMENT") {
+	dotenv.config({ path: ".env.development" })
+} else {
+	dotenv.config({ path: ".env.production" })
+}
+
+const prisma = new PrismaClient()
+async function main() {
+
+  // 건물 table 초기 설정
+  const userList = [
+    ['name', 'email@a.com', 0],
+  ]; 
+
+  await Promise.all(userList.map(async (user) => { // await Promise.all 하면 삽입 다 하고 연결 끊김! (순서 섞임)
+    const newUser = await prisma.verify.upsert({
+      where: { Email: user[1] },
+      update: {},
+      create: {
+        Email: user[1],
+        Name: user[0],
+        Class: user[2],
+      },
+    })
+  }))
+
+  
+}
+main()
+  .then(async () => {
+    await prisma.$disconnect()
+  })
+  .catch(async (e) => {
+    console.error(e)
+    await prisma.$disconnect()
+    process.exit(1)
+  })
+
+

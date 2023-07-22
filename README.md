@@ -129,4 +129,6 @@ When adding packages, **Remember to check the Current Working Directory**
 ### DB Migration
 - `cd server && npm run prisma:migrate-dev`
 ### DB Seed
+- `cp .server/seed.js.example .server/seed.js`
+- Edit seed.js file
 - `cd server && npm run prisma:seed`
