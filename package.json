@@ -1,0 +1,28 @@
+{
+  "name": "prisma-express-react-example-setup",
+  "version": "1.0.0",
+  "description": "Example Prisma + Express + React Repository",
+  "main": "index.js",
+  "scripts": {
+	  "dev": "concurrently --kill-others-on-fail --default-input-target 2 --handle-input  --names \"SPARCS,Client-Dev,Server-Dev\" --prefix \"[{name}][{time}]\" --timestamp-format \"HH:mm:ss\" --prefix-colors \"yellow.bold,blue.bold,green.bold\" \"yarn dev:introduce\" \"cd client && yarn dev\" \"cd server && yarn dev\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:introduce": "printf \"[ Welcome to SPARCS NEWBIE Project Dev Server by Night ]\n\n\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UrWrstNightmare/prisma-express-react-example-setup.git"
+  },
+  "author": "Jiho Park",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UrWrstNightmare/prisma-express-react-example-setup/issues"
+  },
+  "homepage": "https://github.com/UrWrstNightmare/prisma-express-react-example-setup#readme",
+  "devDependencies": {
+    "concurrently": "^8.0.1"
+  },
+  "engines" : { 
+    "npm" : ">=8.0.0 <9.0.0",
+    "node" : ">=18.0.0 <19.0.0"
+  }
+}

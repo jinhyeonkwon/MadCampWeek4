@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  sparcs-newbie-postgres:
+    image: postgres:15.2
+    container_name: sparcs-newbie-postgres
+    environment:
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+    ports:
+      - $POSTGRES_LOCAL_PORT:5432
+    volumes:
+      - sparcs-newbie-postgres-data:/var/lib/postgresql/data
+
+volumes:
+  sparcs-newbie-postgres-data:
