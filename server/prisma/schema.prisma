@@ -36,6 +36,7 @@ model Question {
 model Verify {
   Email String @id
   Name String
+  Class Int
 }
 
 model Comment {
