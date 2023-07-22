@@ -9,3 +9,41 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  Id Int @id @default(autoincrement())
+  Name String
+  Email String @unique
+  Password String
+  Class Int
+  comments Comment[]
+}
+
+model Theme {
+  Id Int @id @default(autoincrement())
+  Name String
+  questions Question[]
+}
+
+model Question {
+  Id Int @id @default(autoincrement())
+  theme Theme @relation(fields: [ThemeId], references: [Id])
+  ThemeId Int
+  Contents String
+  comments Comment[]
+}
+
+model Verify {
+  Email String @id
+  Name String
+}
+
+model Comment {
+  Id Int @id @default(autoincrement())
+  question Question @relation(fields: [QuestionId], references: [Id])
+  QuestionId Int
+  author User @relation(fields: [AuthorId], references: [Id])
+  AuthorId Int
+  Contents String
+  Class Int
+}

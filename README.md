@@ -123,5 +123,7 @@ When adding packages, **Remember to check the Current Working Directory**
 - The server directory
 - Contains Express + Prisma Setup
 
+****
 
-## Repository Structure
+## DB Migration
+- `cd server && npm run prisma:migrate-dev`

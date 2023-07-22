@@ -7,7 +7,10 @@
     "dev": "ENVIRONMENT=\"DEVELOPMENT\" nodemon src",
     "start": "ENVIRONMENT=\"DEVELOPMENT\" node src",
     "production": "ENVIRONMENT=\"PRODUCTION\" node src",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prisma:migrate-dev": "dotenv -e .env.development prisma migrate dev",
+    "prisma:pull-dev": "dotenv -e .env.development prisma db pull",
+    "prisma:pull-prod": "dotenv -e .env.production prisma db pull"
   },
   "type": "module",
   "author": "Jiho park",
@@ -16,6 +19,7 @@
     "nodemon": "^2.0.22"
   },
   "dependencies": {
+    "@prisma/client": "5.0.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "prisma": "^5.0.0"
