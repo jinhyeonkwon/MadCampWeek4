@@ -125,5 +125,8 @@ When adding packages, **Remember to check the Current Working Directory**
 
 ****
 
-## DB Migration
+## DB Settings
+### DB Migration
 - `cd server && npm run prisma:migrate-dev`
+### DB Seed
+- `cd server && npm run prisma:seed`

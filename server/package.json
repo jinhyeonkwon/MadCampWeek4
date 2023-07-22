@@ -10,7 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prisma:migrate-dev": "dotenv -e .env.development prisma migrate dev",
     "prisma:pull-dev": "dotenv -e .env.development prisma db pull",
-    "prisma:pull-prod": "dotenv -e .env.production prisma db pull"
+    "prisma:pull-prod": "dotenv -e .env.production prisma db pull",
+    "prisma:seed": "ENVIRONMENT=\"DEVELOPMENT\" npx prisma db seed"
   },
   "type": "module",
   "author": "Jiho park",
@@ -23,5 +24,8 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "prisma": "^5.0.0"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
   }
 }
