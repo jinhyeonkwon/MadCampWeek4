@@ -54,7 +54,9 @@ router.post('/', async (req, res) => {
 router.post('/verify', async (req, res) => {
   try {
     console.log(req.body);
-    const { email, name } = req.body;
+    const email = req.body.email;
+    const name = req.body.name;
+    const userClass = req.body.userClass;
  
     const user = await prisma.verify.findUnique({
      where: {
@@ -69,7 +71,7 @@ router.post('/verify', async (req, res) => {
     if(user && already_user){
        res.json({match:false,message:"이미 등록된 사용자 입니다."})
     }
-    if (user && user.Name === name) {
+    if (user && user.Name === name && user.Class === parseInt(userClass)) {
      res.json({ match: true,message:"몰입 캠프 사용자 인증에 성공하였습니다." });
      
     } else {

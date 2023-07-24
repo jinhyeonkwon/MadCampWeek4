@@ -12,6 +12,7 @@ function Signup(){
    const [email, setEmail]=useState('')
    const [userid,setUserId]=useState('')
    const [userclass, setUserClass]=useState("0")
+   const [isVerified, setIsVerified] = useState(false)
 
    //email & 비밀번호 정규식
    //대문자, 소문자 알파벳, 그리고 숫자를 포함한 길이 8자~20자 사이의 문자열
@@ -79,9 +80,10 @@ function Signup(){
    
     try {
       console.log(`Email : ${email}`);
-      const response = await axios.post(`${API_URL}/signup/verify`, { email: email, name: name });
+      const response = await axios.post(`${API_URL}/signup/verify`, { email: email, name: name, userClass: userclass });
       if (response.data.match) {
         alert(response.data.message);
+        setIsVerified(true);
       } else {
    
         alert(response.data.message);
@@ -134,24 +136,23 @@ function Signup(){
     <div>
        <label>Email</label>
        <input type="email" value={email} onChange={(e)=>{setEmail(e.target.value);
-        emailCheck(e.target.value)}}/>
+        emailCheck(e.target.value)}} disabled={isVerified}/>
        <br/>
        <label>name</label>
-       <input type="name" value={name} onChange={handleName} />
+       <input type="name" value={name} onChange={handleName} disabled={isVerified}/>
        <br/>
+       <label>Class</label>
+       <input type="class" value={userclass} onChange={(e)=>{setUserClass(e.target.value);
+        }} disabled={isVerified}/>
+        <br/>
        
-       <button type="submit" onClick={handleVerify}>인증</button>
+       <button type="submit" onClick={handleVerify} disabled={isVerified}>인증</button>
     <br/>
     <label>userid</label> 
         <input type="userid" value={userid} onChange={handleUserId} /> 
        <br/>
        <label>Password</label>
        <input type="password" value={pw} onChange={(e)=>{setPw(e.target.value);
-        }} />
-      
-       <br />
-       <label>Class</label>
-       <input type="class" value={userclass} onChange={(e)=>{setUserClass(e.target.value);
         }} />
       
       
