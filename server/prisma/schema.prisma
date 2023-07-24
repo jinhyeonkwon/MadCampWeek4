@@ -19,15 +19,15 @@ model User {
   comments Comment[]
 }
 
-model Theme {
-  Id Int @id @default(autoincrement())
-  Name String
-  questions Question[]
-}
+// model Theme {
+//   Id Int @id @default(autoincrement())
+//   Name String
+//   questions Question[]
+// }
 
 model Question {
   Id Int @id @default(autoincrement())
-  theme Theme @relation(fields: [ThemeId], references: [Id])
+  // theme Theme @relation(fields: [ThemeId], references: [Id])
   ThemeId Int
   Contents String
   comments Comment[]
