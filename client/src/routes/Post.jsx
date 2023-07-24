@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 const POSTS_PER_PAGE = 5
 
-function PostList() {
+function Post() {
   return (
     <div className="PostContainer">
       <img className="PostImage" src="/img/쌍둥이자리.png" />
@@ -14,4 +14,4 @@ function PostList() {
   )
 }
 
-export default PostList
+export default Post

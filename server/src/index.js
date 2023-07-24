@@ -14,9 +14,10 @@ if (process.env.ENVIRONMENT === "DEVELOPMENT") {
 }
 
 import signupRouter from './routes/signup.js';
-import questionRouter from './routes/question.js';
+// import questionRouter from './routes/question.js';
 import homeRouter from './routes/home.js';
-import commentRouter from './routes/comment.js';
+// import commentRouter from './routes/comment.js';
+import postRouter from './routes/post.js';
 
 
 const app = express();
@@ -28,9 +29,10 @@ app.use(cors())
 app.use(bodyParser.json());
 
 app.use('/signup', signupRouter);
-app.use('/question', questionRouter);
+// app.use('/question', questionRouter);
 app.use('/', homeRouter);
-app.use('/comment', commentRouter);
+// app.use('/comment', commentRouter);
+app.use('/post', postRouter);
 
 
 // app.get("/", (req, res) => {
