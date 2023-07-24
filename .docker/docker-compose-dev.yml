@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  sparcs-newbie-postgres:
+  madcamp-week4-postgres:
     image: postgres:15.2
     container_name: madcamp-week4-postgres
     environment:

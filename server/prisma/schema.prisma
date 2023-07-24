@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,40 +8,39 @@ datasource db {
 }
 
 model User {
-  Id Int @id @default(autoincrement())
-  Name String
-  Email String @unique
+  Id       Int       @id @default(autoincrement())
+  Name     String
+  Email    String    @unique
+  UserId  String @unique
   Password String
-  Class Int
+  Class    Int
   comments Comment[]
-}
-
-model Theme {
-  Id Int @id @default(autoincrement())
-  Name String
   questions Question[]
 }
 
 model Question {
-  Id Int @id @default(autoincrement())
-  theme Theme @relation(fields: [ThemeId], references: [Id])
-  ThemeId Int
+  Id       Int       @id @default(autoincrement())
+  ThemeId  Int
+  AuthorId   Int?
   Contents String
+  Class Int
+  author     User?     @relation(fields: [AuthorId], references: [Id])
   comments Comment[]
 }
 
 model Verify {
   Email String @id
-  Name String
+  Name  String
   Class Int
 }
 
 model Comment {
-  Id Int @id @default(autoincrement())
-  question Question @relation(fields: [QuestionId], references: [Id])
+  Id         Int      @id @default(autoincrement())
   QuestionId Int
-  author User @relation(fields: [AuthorId], references: [Id])
-  AuthorId Int
-  Contents String
-  Class Int
+  AuthorId   Int
+  Contents   String
+  CreatedAt  DateTime
+  ModifiedAt DateTime
+  author     User     @relation(fields: [AuthorId], references: [Id])
+  question   Question @relation(fields: [QuestionId], references: [Id])
 }
