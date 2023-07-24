@@ -108,5 +108,50 @@ router.post('/createcomments', async (req, res) => {
   }
 });
 
+router.post('/deletecomments', async (req, res) => {
+  console.log('/comment/deletecomments');
+  try {
+    const authHeader = req.headers.authorization;
+    if (authHeader) {
+      const token = authHeader.split(' ')[1];
+    }
+    const decodedToken = jwt.verify(token, SECRET_KEY);
+    const userClass = decodedToken.class;
+    const userId = decodedToken.id;
+
+    const { commentId } = req.body;
+
+    const user = await prisma.user.findUnique({
+      where: {
+        Id: userId,
+      }
+    });
+
+    const comment = await prisma.comment.findUnique({
+      where: {
+        Id: commentId,
+      }
+    })
+
+    if (user.Class !== userClass) {
+      return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
+    } else if (userId !== comment.AuthorId) {
+      return res.status(400).send('본인이 작성한 댓글이 아닙니다!');
+    }
+
+    const deletedComment = await prisma.comment.delete({
+      where: {
+        Id: commentId,
+      },
+    });
+
+    return res.status(200).json({isOk: true});
+    
+  }
+  catch (e) {
+    res.status(500).json({error : e});
+  }
+});
+
 
 export default router;

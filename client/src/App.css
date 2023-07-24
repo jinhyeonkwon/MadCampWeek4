@@ -1,42 +1,129 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+
+
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Gothic+A1:wght@400;700&family=Gugi&family=Lobster&family=Merriweather:ital,wght@1,400;1,700&family=Nanum+Myeongjo:wght@700;800&display=swap');
+
+@font-face{
+  font-family:"Myeongjo30";
+  src:url("../public/fonts/210\ 수필명조OTF\ 030.otf")
+}
+@font-face{
+  font-family:"Myeongjo50";
+  src:url("../public/fonts/210\ 수필명조OTF\ 050.otf")
+}
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.MainPage {
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+}
+/*짱입니다!!!!!*/
+.MainBox {
+  border: 2px solid white;
+  padding: 20px;
+  width: 500px;
+  height: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+.MainText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  color: aliceblue;
+  font-size: 80px;
+  font-family: 'Myeongjo30';
+}
+.MainButton {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+.PostContainer {
+  width: '100vw';
+  height: '100vh';
+}
+.PostVideo {
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+.PostImage {
+  position: absolute;
+  top: 20%;
+  left: 40%;
+  z-index: 2;
+}
+.ModalContainer {
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  border: 1px solid #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: transparent;
+  width: 500px;
+  height: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.ModalTitle {
+  margin-top: 10px;
+  display: block;
+  font-size: 40px;
+  font-weight:bold;
+  color: #fff;
   text-align: center;
+  margin-bottom: 20px;
+  font-family:'Myeongjo30' ;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.ModalSubTitle {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #fff;
+  font-family:'Myeongjo30' ;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+input[type="text"] {
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #fff;
+  background-color: transparent;
+  color: #fff;
+  padding: 5px 0;
+  outline: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.LoginButtonContainer {
+  display:flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.ModalInputContainer{
+  margin-top: 20%;
+  margin-left: 5%;
+  margin-right: 5%;
 }

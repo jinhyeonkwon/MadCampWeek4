@@ -63,6 +63,7 @@ router.post('/createquestions', async (req, res) => {
         Id: userId,
       }
     });
+
     if (user.Class !== userClass) {
       return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
     }
@@ -70,9 +71,55 @@ router.post('/createquestions', async (req, res) => {
     const newQuestion = await prisma.question.create({
       data: {
         ThemeId: themeId,
-        AuthorId: userId,
         Contents: contents,
         Class: userClass,
+        AuthorId: userId,
+      }
+    })
+    
+
+    return res.status(200).json({isOk : true});
+    
+  }
+  catch (e) {
+    res.status(500).json({error : e});
+  }
+});
+  
+router.post('/deletequestions', async (req, res) => {
+  console.log('/question/deletequestions');
+  try {
+    const authHeader = req.headers.authorization;
+    if (authHeader) {
+      const token = authHeader.split(' ')[1];
+    }
+    const decodedToken = jwt.verify(token, SECRET_KEY);
+    const userClass = decodedToken.class;
+    const userId = decodedToken.id;
+
+    const { questionId } = req.body;
+
+    const user = await prisma.user.findUnique({
+      where: {
+        Id: userId,
+      }
+    });
+
+    const question = await prisma.question.findUnique({
+      where: {
+        Id: questionId,
+      }
+    })
+
+    if (user.Class !== userClass) {
+      return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
+    } else if (userId !== question.AuthorId) {
+      return res.status(400).send('본인이 작성한 질문이 아닙니다!');
+    }
+
+    const deletedQuestion = await prisma.question.delete({
+      where: {
+        Id: questionId,
       },
     });
 
