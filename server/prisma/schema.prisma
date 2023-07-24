@@ -39,6 +39,8 @@ model Comment {
   QuestionId Int
   AuthorId   Int
   Contents   String
+  CreatedAt  DateTime
+  ModifiedAt DateTime
   author     User     @relation(fields: [AuthorId], references: [Id])
   question   Question @relation(fields: [QuestionId], references: [Id])
 }
