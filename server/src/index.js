@@ -10,8 +10,9 @@ if (process.env.ENVIRONMENT === "DEVELOPMENT") {
 }
 
 import signupRouter from './routes/signup.js';
-import postRouter from './routes/post.js';
+import questionRouter from './routes/question.js';
 import homeRouter from './routes/home.js';
+import commentRouter from './routes/comment.js';
 
 
 const app = express();
@@ -20,8 +21,9 @@ const port = process.env.EXPRESS_PORT;
 // CORS 관련 부분
 
 app.use('/signup', signupRouter);
-app.use('/post', postRouter);
+app.use('/question', questionRouter);
 app.use('/', homeRouter);
+app.use('/comment', commentRouter);
 
 
 // app.get("/", (req, res) => {
