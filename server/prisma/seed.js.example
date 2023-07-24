@@ -40,4 +40,45 @@ main()
     process.exit(1)
   })
 
+const questionList = [
+  ['', 1] // 1 : 질문 카테고리
+]
 
+await Promise.all(questionList.map(async (question) => { // await Promise.all 하면 삽입 다 하고 연결 끊김! (순서 섞임)
+  const newQuestion1 = await prisma.question.upsert({
+    where: {},
+    update: {},
+    create: {
+      Contents: question[0],
+      ThemeId: question[1],
+      Class: 1,
+    },
+  })
+  const newQuestion2 = await prisma.question.upsert({
+    where: {},
+    update: {},
+    create: {
+      Contents: question[0],
+      ThemeId: question[1],
+      Class: 2,
+    },
+  })
+  const newQuestion3 = await prisma.question.upsert({
+    where: {},
+    update: {},
+    create: {
+      Contents: question[0],
+      ThemeId: question[1],
+      Class: 3,
+    },
+  })
+  const newQuestion4 = await prisma.question.upsert({
+    where: {},
+    update: {},
+    create: {
+      Contents: question[0],
+      ThemeId: question[1],
+      Class: 4,
+    },
+  })
+}))

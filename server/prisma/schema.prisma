@@ -15,13 +15,16 @@ model User {
   Password String
   Class    Int
   comments Comment[]
+  questions Question[]
 }
 
 model Question {
   Id       Int       @id @default(autoincrement())
   ThemeId  Int
+  AuthorId   Int?
   Contents String
   Class Int
+  author     User?     @relation(fields: [AuthorId], references: [Id])
   comments Comment[]
 }
 
