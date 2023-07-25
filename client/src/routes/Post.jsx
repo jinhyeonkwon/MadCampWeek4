@@ -21,7 +21,7 @@ const exampleCommentList = [{
 function Post() {
   return (
     <div className="PostContainer">
-      {/* navbar */}
+      {/* 나중에 질문 아이디 반영해서 넣기  */}
       <CommentsModal isOpen={true} qId={1} />
       <nav className="navbar">
         <div className='navbar-container'>

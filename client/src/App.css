@@ -4,11 +4,19 @@
 
 @font-face{
   font-family:"Myeongjo30";
-  src:url("../public/fonts/210\ 수필명조OTF\ 030.otf")
+  src:url("../fonts/210\ 수필명조OTF\ 030.otf")
 }
 @font-face{
   font-family:"Myeongjo50";
-  src:url("../public/fonts/210\ 수필명조OTF\ 050.otf")
+  src:url("../fonts/210\ 수필명조OTF\ 050.otf")
+}
+@font-face{
+  font-family:"Myeongjo10";
+  src:url("../fonts/210\ 수필명조OTF\ 010.otf")
+}
+@font-face{
+  font-family:"Myeongjo20";
+  src:url("../fonts/210\ 수필명조OTF\ 020.otf")
 }
 
 @font-face {
@@ -16,6 +24,27 @@
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff') format('woff');
   font-weight: normal;
   font-style: normal;
+}
+
+.ink {
+  font-family: InkLipquid;
+}
+
+.myeongjo10 * {
+  font-family: Myeongjo10;
+}
+.myeongjo20 * {
+  font-family: Myeongjo20;
+}
+.myeongjo30 * {
+  font-family: Myeongjo30;
+}
+.myeongjo50 * {
+  font-family: Myeongjo50;
+}
+
+.large-text {
+  font-size: x-large;
 }
 
 .column {
