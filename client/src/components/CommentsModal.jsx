@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import '../App.css'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -26,38 +26,46 @@ function Modal({ isOpen, qId }){
 
       if (response.status === 200) {
         console.log('getThatQuestion 성공');
-        setQuestion(response.question);
+        setQuestion(response.data.question);
       }
   };
+
   const getComments = async () => {
 
     const response = await axios.post(API_URL+'/post/getcomments', 
-    {
-      questionId: qId,
-    }, {
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-        'Content-Type': 'application/json',
-      }
-    });
+      {
+        questionId: qId,
+      }, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          'Content-Type': 'application/json',
+        }
+      });
 
     if (response.status === 200) {
       console.log('getComments 성공');
-      setCList(response.commentList);
+      console.log(`cList : ${cList}`);
+      setCList(response.data.commentList);
     }
   };
 
-  getThatQuestion();
-  console.log(question);
-  getComments();
-  console.log(cList);
-
+  useEffect(() => {
+    getThatQuestion();
+    console.log(`question : ${question}`);
+    getComments();
+    console.log(`cList : ${cList}`);
+  }, []);
 
   const cardList = cList.map((comment) => (
-    <div className="card" style={{marginTop:'5px', marginBottom:'5px'}}>
+    <div className="card" style={{marginTop:'10px', marginBottom:'10px'}}>
       <form onSubmit={(event) => console.log(event)}>
         <header className="card-header">
-          {comment.AuthorId}
+          <div style={{marginLeft: '10px'}}>
+          {`${comment.author.Name} `}  
+          </div>
+          <div style={{align: 'right'}}>
+            {`${comment.CreatedAt}`}
+          </div>
         </header>
         <div className="card-content">
           {comment.Contents}

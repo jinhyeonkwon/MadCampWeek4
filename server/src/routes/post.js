@@ -38,7 +38,7 @@ router.post('/getquestions', async (req, res) => {
       return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
     }
 
-    const questionList = prisma.question.findMany(
+    const questionList = await prisma.question.findMany(
       {
         where: {
           Class: userClass,
@@ -60,21 +60,19 @@ router.post('/getonequestion', async (req, res) => {
   try {
     const authHeader = req.headers.authorization;
     console.log(authHeader);
-    if (authHeader) {
-      const token = authHeader.split(' ')[1];
-      console.log('token ' + token);
+    if (!authHeader) {
+      return res.status(400).send('header가 없어요!');
     }
-    try {
-      const decodedToken = jwt.verify(token, SECRET_KEY);
-    } catch (e){
-      console.log(e);
-    }
-    console.log('decoded key ' + decodedToken);
+    const token = authHeader.split(' ')[1];
+    console.log('getonequestion) token ' + token);
+    const decodedToken = jwt.verify(token, SECRET_KEY);
+    console.log('getonequestion) decoded key ' + decodedToken);
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
-    console.log(`userId: ${userId}, userClass: ${userClass}`);
+    console.log(`getonequestion) userId: ${userId}, userClass: ${userClass}`);
 
     const { questionId } = req.body;
+    console.log(`getonequestion) questionId : ${questionId}`);
 
     const user = await prisma.user.findUnique({
       where: {
@@ -86,13 +84,14 @@ router.post('/getonequestion', async (req, res) => {
     }
 
 
-    const question = prisma.question.findUnique(
+    const question = await prisma.question.findUnique(
       {
         where: {
           Id: questionId,
         }
       }
     );
+    console.log(`getonequestion) question.id : ${question.Id}`);
     if (user.Class !== question.Class) {
       return res.status(400).send('유저 분반과 질문 분반이 맞지 않습니다!');
     }
@@ -106,8 +105,42 @@ router.post('/getonequestion', async (req, res) => {
   }
 });
 
+router.post('/getoneuser', async (req, res) => {
+  console.log('/post/getoneuser');
+  try {
+    const authHeader = req.headers.authorization;
+    console.log(authHeader);
+    if (!authHeader) {
+      return res.status(400).send('header가 없어요!');
+    }
+    const token = authHeader.split(' ')[1];
+    console.log('getonequestion) token ' + token);
+    const decodedToken = jwt.verify(token, SECRET_KEY);
+    console.log('getonequestion) decoded key ' + decodedToken);
+    const userClass = decodedToken.class;
+
+    const { userId } = req.body;
+
+    const user = await prisma.user.findUnique({
+      where: {
+        Id: userId,
+      }
+    });
+    if (user.Class !== userClass) {
+      return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
+    }
+
+    return res.status(200).json({ user: user });
+
+  }
+  catch (e) {
+    console.log(e);
+    res.status(500).json({error : e});
+  }
+});
+
 router.post('/createquestions', async (req, res) => {
-  console.log('/question/createquestions');
+  console.log('/post/createquestions');
   try {
     const authHeader = req.headers.authorization;
     if (authHeader) {
@@ -195,25 +228,19 @@ router.post('/deletequestions', async (req, res) => {
 router.post('/getcomments', async (req, res) => {
   console.log('/comment/getcomments');
   try {
-    let token;
-    let decodedToken;
     const authHeader = req.headers.authorization;
-    if (authHeader) {
-      token = authHeader.split(' ')[1];
-      console.log('token : ' + token);
+    if (!authHeader) {
+      return res.status(400).send('header가 없어요!');
     }
-    try {
-      decodedToken = jwt.verify(token, SECRET_KEY);
-      console.log('decodedToken : ' + decodedToken);
-    } catch (e){
-      console.log(e);
-    }
+    const token = authHeader.split(' ')[1];
+    const decodedToken = jwt.verify(token, SECRET_KEY);
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
     console.log(userClass);
     console.log(userId);
-
-    const { questionId } = res.body;
+    
+    const { questionId } = req.body;
+    console.log(`getcomments) questionId : ${questionId}`);
 
     const user = await prisma.user.findUnique({
       where: {
@@ -228,21 +255,27 @@ router.post('/getcomments', async (req, res) => {
         }
       }
     )
-
+    console.log(`fdsffdsfsdf ${question.Class}`);
+  
     if (user.Class !== userClass) {
       return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
-    } else if (userClass !== question.Class) {
-      return res.status(400).send('질문 아이디와 분반이 맞지 않습니다!');
+    }
+    if (userClass !== question.Class) {
+      console.log(`질문 아이디와 분반이 맞지 않습니다! : userClass = ${userClass}, question.Class = ${question.Class}`);
+      return res.status(400).send(`질문 아이디와 분반이 맞지 않습니다! : userClass = ${userClass}, user.Class=${user.Class}`);
     }
 
-    const commentList = prisma.comment.findMany(
+    const commentList = await prisma.comment.findMany(
       {
         where: {
           QuestionId: questionId,
-        }
+        },
+        include: {
+          author: true,
+        },
       }
     );
-
+    console.log(`commentList.length : ${commentList.length}`);
     return res.status(200).json({ commentList: commentList });
 
   }
