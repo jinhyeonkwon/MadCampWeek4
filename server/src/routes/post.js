@@ -20,9 +20,10 @@ router.post('/getquestions', async (req, res) => {
   console.log('/question/getquestions');
   try {
     const authHeader = req.headers.authorization;
-    if (authHeader) {
-      const token = authHeader.split(' ')[1];
+    if (!authHeader) {
+      return res.status(400).send('header가 없어요!');
     }
+    const token = authHeader.split(' ')[1];
     const decodedToken = jwt.verify(token, SECRET_KEY);
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
@@ -43,7 +44,10 @@ router.post('/getquestions', async (req, res) => {
         where: {
           Class: userClass,
           ThemeId: themeId,
-        }
+        },
+        include: {
+          author: true,
+        },
       }
     );
 
@@ -88,10 +92,13 @@ router.post('/getonequestion', async (req, res) => {
       {
         where: {
           Id: questionId,
+        },
+        include: {
+          author: true,
         }
       }
     );
-    console.log(`getonequestion) question.id : ${question.Id}`);
+    console.log(`getonequestion) question.author.Name : ${question.author.Name}`);
     if (user.Class !== question.Class) {
       return res.status(400).send('유저 분반과 질문 분반이 맞지 않습니다!');
     }
@@ -143,9 +150,10 @@ router.post('/createquestions', async (req, res) => {
   console.log('/post/createquestions');
   try {
     const authHeader = req.headers.authorization;
-    if (authHeader) {
-      const token = authHeader.split(' ')[1];
+    if (!authHeader) {
+      return res.status(400).send('header가 없어요!');
     }
+    const token = authHeader.split(' ')[1];
     const decodedToken = jwt.verify(token, SECRET_KEY);
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
@@ -184,9 +192,10 @@ router.post('/deletequestions', async (req, res) => {
   console.log('/question/deletequestions');
   try {
     const authHeader = req.headers.authorization;
-    if (authHeader) {
-      const token = authHeader.split(' ')[1];
+    if (!authHeader) {
+      return res.status(400).send('header가 없어요!');
     }
+    const token = authHeader.split(' ')[1];
     const decodedToken = jwt.verify(token, SECRET_KEY);
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
@@ -290,14 +299,15 @@ router.post('/createcomments', async (req, res) => {
   const utc = curr.getTime() + 9*60*60*1000; // 한국 시간대 맞추려고..
   try {
     const authHeader = req.headers.authorization;
-    if (authHeader) {
-      const token = authHeader.split(' ')[1];
+    if (!authHeader) {
+      return res.status(400).send('header가 없어요!');
     }
+    const token = authHeader.split(' ')[1];
     const decodedToken = jwt.verify(token, SECRET_KEY);
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
 
-    const { questionId, contents } = res.body;
+    const { questionId, contents } = req.body;
 
     const user = await prisma.user.findUnique({
       where: {
@@ -341,9 +351,10 @@ router.post('/deletecomments', async (req, res) => {
   console.log('/comment/deletecomments');
   try {
     const authHeader = req.headers.authorization;
-    if (authHeader) {
-      const token = authHeader.split(' ')[1];
+    if (!authHeader) {
+      return res.status(400).send('header가 없어요!');
     }
+    const token = authHeader.split(' ')[1];
     const decodedToken = jwt.verify(token, SECRET_KEY);
     const userClass = decodedToken.class;
     const userId = decodedToken.id;

@@ -26,6 +26,7 @@ function Modal({ isOpen, qId }){
 
       if (response.status === 200) {
         console.log('getThatQuestion 성공');
+        console.log(response.data.question);
         setQuestion(response.data.question);
       }
   };
@@ -79,7 +80,8 @@ function Modal({ isOpen, qId }){
             <div className="modal-background"></div>
             <div className="modal-card is-transparent">
               <header className='modal-card-head'>
-                <p>{question.Contents}</p>
+                <p>{question.Contents}</p>&nbsp;
+                <p>{question.author ? `질문 작성자 : ${question.author.Name}` : '기본 질문'}</p>
                 <button class="delete" onClick={(e) => SetModalState(false)}aria-label="close" style={{margin: 'auto 0 auto auto'}}></button>
               </header>
               <section className="modal-card-body">
