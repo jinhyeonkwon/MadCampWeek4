@@ -1,10 +1,18 @@
 import express from "express";
 import { PrismaClient, Prisma } from '@prisma/client';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+if (process.env.ENVIRONMENT === "DEVELOPMENT") {
+	dotenv.config({ path: ".env.development" })
+} else {
+	dotenv.config({ path: ".env.production" })
+}
 
 
 const prisma = new PrismaClient();
 const SECRET_KEY = process.env.SECRET_KEY;
+console.log(SECRET_KEY);
 const router = express.Router();
 
 // 요청
@@ -43,6 +51,57 @@ router.post('/getquestions', async (req, res) => {
 
   }
   catch (e) {
+    res.status(500).json({error : e});
+  }
+});
+
+router.post('/getonequestion', async (req, res) => {
+  console.log('/question/getonequestion');
+  try {
+    const authHeader = req.headers.authorization;
+    console.log(authHeader);
+    if (authHeader) {
+      const token = authHeader.split(' ')[1];
+      console.log('token ' + token);
+    }
+    try {
+      const decodedToken = jwt.verify(token, SECRET_KEY);
+    } catch (e){
+      console.log(e);
+    }
+    console.log('decoded key ' + decodedToken);
+    const userClass = decodedToken.class;
+    const userId = decodedToken.id;
+    console.log(`userId: ${userId}, userClass: ${userClass}`);
+
+    const { questionId } = req.body;
+
+    const user = await prisma.user.findUnique({
+      where: {
+        Id: userId,
+      }
+    });
+    if (user.Class !== userClass) {
+      return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
+    }
+
+
+    const question = prisma.question.findUnique(
+      {
+        where: {
+          Id: questionId,
+        }
+      }
+    );
+    if (user.Class !== question.Class) {
+      return res.status(400).send('유저 분반과 질문 분반이 맞지 않습니다!');
+    }
+
+    return res.status(200).json({ question: question });
+
+  }
+  catch (e) {
+    console.log(e);
     res.status(500).json({error : e});
   }
 });
@@ -136,13 +195,23 @@ router.post('/deletequestions', async (req, res) => {
 router.post('/getcomments', async (req, res) => {
   console.log('/comment/getcomments');
   try {
+    let token;
+    let decodedToken;
     const authHeader = req.headers.authorization;
     if (authHeader) {
-      const token = authHeader.split(' ')[1];
+      token = authHeader.split(' ')[1];
+      console.log('token : ' + token);
     }
-    const decodedToken = jwt.verify(token, SECRET_KEY);
+    try {
+      decodedToken = jwt.verify(token, SECRET_KEY);
+      console.log('decodedToken : ' + decodedToken);
+    } catch (e){
+      console.log(e);
+    }
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
+    console.log(userClass);
+    console.log(userId);
 
     const { questionId } = res.body;
 

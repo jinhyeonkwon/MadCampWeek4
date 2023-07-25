@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import Main from './routes/Main'
 
-import PostList from './routes/Post'
+import Post from './routes/Post'
 
 import Signup from './routes/Signup'
 
