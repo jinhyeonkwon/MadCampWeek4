@@ -21,7 +21,7 @@ router.post('/login', async (req, res) => {
     })
     const isPasswordCorrect = user && await bcrypt.compare(password, user.Password);
     if (isPasswordCorrect) { 
-     const token =  jwt.sign({  name: user.Name, email:user.Email,class:user.Class, id:user.Id }, process.env.SECRET_KEY, { expiresIn: '1h' });
+     const token =  jwt.sign({  name: user.Name, email:user.Email,class:user.Class, id:user.Id }, process.env.SECRET_KEY, { expiresIn: '12h' });
      console.log('로그인 성공: ', {  userid});
      res.status(200).json({ token });
     } else {
