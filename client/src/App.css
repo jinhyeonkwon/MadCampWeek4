@@ -1,4 +1,12 @@
-
+html,
+body,
+#root,
+.App {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
 
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Gothic+A1:wght@400;700&family=Gugi&family=Lobster&family=Merriweather:ital,wght@1,400;1,700&family=Nanum+Myeongjo:wght@700;800&display=swap');
 
