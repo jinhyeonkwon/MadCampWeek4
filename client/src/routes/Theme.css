@@ -1,0 +1,179 @@
+/* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+
+.ThemeMain::-webkit-scrollbar {
+    display: none;
+  }
+  .ThemeMain {
+    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none; /* 파이어폭스 */
+  }
+  /* @media screen and (max-width: 50vw) {
+    .BgImage {
+      background-size: cover; 
+      background-position: center; 
+    }
+  }
+  @media screen and (max-width: 97%) {
+   .ThemeLeft{
+       display: none;
+   }
+  } */
+.BgImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url(./img/MainPage2.jpg);
+    background-size: 100%;
+    z-index: 1;
+    
+  }
+  .ThemeMain {
+    width:100%;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; 
+  }
+  
+  .ThemeLeft{
+    display: flex;
+    flex-direction: column;
+    z-index:2;
+   
+  }
+  .ThemeRight {
+    position:relative;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    margin-left: 10%;
+    /* margin-top:8%; */
+    width:100%;
+    /* height:80%; */
+  }
+  
+  .ThemeContent{
+   
+    display: flex;
+    flex-direction: row;
+  }
+  
+  header {
+    margin-top: 4.5rem;
+    display: flex;
+   
+    align-items: center; 
+    flex-direction: row;
+    padding: 1rem;
+    z-index: 2;
+    position: relative; 
+  }
+  
+  .ThemeTitle {
+    font-size: 5rem;
+    position: absolute;
+    font-family: 'InkLipquid';
+    color: #fff;
+    left: 50%; /* 추가된 코드 */
+    transform: translateX(-50%); /* 추가된 코드 */
+  }
+  
+  .userInfo {
+    position: absolute; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    right: 0;
+  }
+  
+  .userProfile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* 간격을 위해이 속성을 추가합니다 */
+    width: 200px; /* 간격 값 조정을 위해 적절한 너비를 선택합니다 */
+  }
+  
+  .logoutBtn {
+    margin-top: 0.25rem;
+    margin-right: 0.25rem;
+  }
+  
+  .ThemeName {
+    margin-left: 20%;
+    font-size: 2rem;
+    position: absolute;
+    font-family: 'Myeongjo30';
+    color: #fff;
+  }
+  .logoutBtn{
+    margin-left:23%;
+  }
+  
+  
+  .question-card {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    color: #333;
+    font-family: 'Gothic A1', sans-serif;
+  }
+  
+  .question-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .modal-overlay {
+   
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+  }
+  
+  .modal {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 500px;
+    width: 90%;
+    z-index: 999;
+  }
+  .question-list::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .question-list {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  
+    margin-top: 20%;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+  
+
+  /* Plus Image */
+.ThemeRight img[src="/img/plus.png"] {
+    position: absolute;
+    margin-right: 5%;
+
+    top: 21%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer; /* Clickable하게 만들기 위해 cursor 속성 추가 */
+}

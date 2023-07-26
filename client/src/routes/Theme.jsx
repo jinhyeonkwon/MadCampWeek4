@@ -1,12 +1,16 @@
 import React,{useState,useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from './ThemeHeader';
 import axios from 'axios';
 import image1 from '../assets/img/img_1.png';
 import back from "../assets/img/back.png";
 const API_URL = 'http://localhost:8000';
 import Modals from './Modals';
+import "./Theme.css"
+import { useMediaQuery } from "react-responsive";
 
 function Theme() {
+  const navigate=useNavigate()
   const [question, setQuestion] = useState([]);
 
   const access_token = localStorage.getItem('token')
@@ -36,15 +40,13 @@ function Theme() {
 
   const showModal = () => {
     setIsOpen(true);
-    console.log("open")
   };
-
 
   const getThatQuestion = async () => {
     console.log(API_URL+'/post/getquestions');
       const response = await axios.post(API_URL+'/post/getquestions', 
       {
-        themeId:1 // 관리해줘야 해
+        themeId:data // 관리해줘야 해
       }, {
         headers: {
           Authorization: `Bearer ${access_token}`,
@@ -64,10 +66,11 @@ function Theme() {
 
   }, []);
 
+
 const handleDelete=async(event,id)=>{
   const response = await axios.post(API_URL+'/post/deletequestions', 
   {
-    questionId:id // 관리해줘야 해
+    questionId:id 
   }, {
     headers: {
       Authorization: `Bearer ${access_token}`,
@@ -83,6 +86,10 @@ const handleDelete=async(event,id)=>{
   }
 
 }
+const NavPost=()=>{
+  navigate("/post2")
+}
+
   const questionList = question.map((question) => (
     // <div style={question.Id==1?{marginTop:'15%'}:{}}>
     <div className="card" style={{  position: 'relative',
@@ -106,27 +113,27 @@ const handleDelete=async(event,id)=>{
   ));
   console.log(questionList)
 
-
   return (
       <div className="ThemeMain">
             <div className="BgImage" />
-             
+            {isOpen && <Modals setIsOpen={setIsOpen} />}
       <Header />
       <div className="ThemeContent">
        <section className='ThemeLeft' style={{marginTop:'5%', marginLeft:'10%',flexGrow: '3'}} >
-          <img src={image1}style={{width:'266px',height:'317px'}}/>
-          <img src={back} style={{width:'120px',height:'30px', marginLeft:'27%',marginBottom:'-5%' }}/>
+          {/* <img src={image1}style={{width:'266px',height:'317px'}}/> */}
+          <img src={image1}></img>
+          {/* <img src={back} style={{width:'120px',height:'30px', marginLeft:'27%',marginBottom:'-5%' }} onClick={NavPost}/> */}
+          <img src={back} onClick={NavPost}/>
        </section>
-       <section className='ThemeRight' style={{flexGrow: '7'}}>
+      
+       {/* <section className='ThemeRight' style={{flexGrow: '7'}}> */}
+       <section className='ThemeRight'>
      
        <img src="/img/plus.png" style={{ display: 'block', marginLeft: 'auto', width:'30px', height:'30px',position: 'absolute', 
           right: 0,}} onClick={showModal}/>
-      <div className="question-list" style={{display:'flex',flexDirection:'column',zIndex:'2', height: '400px', overflowY: 'scroll'}}>{questionList}</div>
+      <div className="question-list" style={{display:'flex',flexDirection:'column',zIndex:'2', height: '200px', overflowY: 'scroll'}}>{questionList}</div>
        </section>
-       <Modals isOpen={isOpen} />
       </div>
-      
-
       </div>
      
   );

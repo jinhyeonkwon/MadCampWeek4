@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'; // import useState and useEffect
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 const API_URL = 'http://localhost:8000';
 import Modals from './Modals';
+import './Theme.css'
 
 function ThemeHeader() {
+  const navigate=useNavigate()
   const [userClass, setUserClass] = useState('');
   const [userName, setUserName] = useState('');
     const access_token=localStorage.getItem('token')
@@ -12,7 +15,11 @@ function ThemeHeader() {
   useEffect(() => {
     getInfo();
   }, []);
-
+  const handleLogout=()=>{
+  
+    localStorage.removeItem('token')
+    navigate('/')
+  }
   const getInfo = async () => {
     try {
       const response = await axios.post(
@@ -46,7 +53,7 @@ function ThemeHeader() {
             {userClass}분반 {userName}
           </span>
         </div>
-        <img className="logoutBtn" src="./img/logout.png" alt="Logout"  />
+        <img className="logoutBtn" src="./img/logout.png" alt="Logout" onClick={handleLogout} />
       </div>
       <span className="ThemeTitle">{userClass}분반 밤하늘</span>
     </header>

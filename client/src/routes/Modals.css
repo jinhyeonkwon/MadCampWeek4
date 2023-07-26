@@ -1,0 +1,58 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+  }
+  
+  .is-active {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 400px; /* 기존 최대 너비에서 더 줄였습니다 */
+    width: 80%; /* 기존 너비의 비율을 줄여줬습니다 */
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .is-active input[type="text"] {
+    padding: 0.5rem;
+    border: solid 1px #ced4da;
+    border-radius: 4px;
+    min-width: 250px; /* 기존 최소 너비를 줄였습니다 */
+    width: 90%;
+    font-size: 1rem;
+    outline: none;
+  }
+  
+  .is-active div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+  }
+  
+  .is-active button {
+    width: 80px;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #6c757d;
+    color: #ffffff;
+  }
+  
+  .is-active button:hover {
+    background-color: #5a6268;
+  }
+  

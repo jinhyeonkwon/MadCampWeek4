@@ -1,26 +1,38 @@
 import React,{useState} from 'react';
-import { useNavigate,Link } from 'react-router-dom';
+import { useNavigate,Link,useLocation} from 'react-router-dom';
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 
 
+import './Post.css'
 import 'swiper/css';
 import 'swiper/css/effect-coverflow'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 
-import slide_image_1 from "../assets/img/img_1.png"
-import slide_image_2 from "../assets/img/img_2.png"
-import slide_image_3 from "../assets/img/img_3.png"
-import slide_image_4 from "../assets/img/img_4.png"
-import slide_image_5 from "../assets/img/img_5.png"
-import slide_image_6 from "../assets/img/img_6.png"
-import slide_image_7 from "../assets/img/img_7.png"
-
+import slide_image_1 from "../assets/img/img_1.svg"
+import slide_image_2 from "../assets/img/img_2.svg"
+import slide_image_3 from "../assets/img/img_3.svg"
+import slide_image_4 from "../assets/img/img_4.svg"
+import slide_image_5 from "../assets/img/img_5.svg"
+import slide_image_6 from "../assets/img/img_6.svg"
+import slide_image_7 from "../assets/img/img_7.svg"
+import slide_image_8 from "../assets/img/img_8.svg"
 function Post2(){
-  
+ 
+const navigate=useNavigate() 
+const NavTheme = (id) => {
+    console.log(id);
+    navigate("/theme", { state: { data: id } });
+  };
+
+  const handleNavThemeClick = (id) => () => {
+    NavTheme(id);
+  };
+
 return(
+
     <div className="container">
     {/* <img className="MainPage" src="/img/MainPage2.jpg"  alt="Background" /> */}
     
@@ -50,26 +62,31 @@ return(
   
 >
     <div className='Slide'>
+       
             <SwiperSlide>
-                <img src={slide_image_1} alt="slide_img"/>
+                <img src={slide_image_1} alt="slide_img" onClick={handleNavThemeClick(1)} />
+            </SwiperSlide>
+
+            <SwiperSlide>
+                <img src={slide_image_2} alt="slide_img" onClick={handleNavThemeClick(2)}/>
             </SwiperSlide>
             <SwiperSlide>
-                <img src={slide_image_2} alt="slide_img"/>
+                <img src={slide_image_3} alt="slide_img" onClick={handleNavThemeClick(3)}/>
             </SwiperSlide>
             <SwiperSlide>
-                <img src={slide_image_3} alt="slide_img"/>
+                <img src={slide_image_4} alt="slide_img" onClick={handleNavThemeClick(4)}/>
             </SwiperSlide>
             <SwiperSlide>
-                <img src={slide_image_4} alt="slide_img"/>
+                <img src={slide_image_5} alt="slide_img" onClick={handleNavThemeClick(5)}/>
             </SwiperSlide>
             <SwiperSlide>
-                <img src={slide_image_5} alt="slide_img"/>
+                <img src={slide_image_6} alt="slide_img" onClick={handleNavThemeClick(6)}/>
             </SwiperSlide>
             <SwiperSlide>
-                <img src={slide_image_6} alt="slide_img"/>
+                <img src={slide_image_7} alt="slide_img" onClick={handleNavThemeClick(7)}/>
             </SwiperSlide>
             <SwiperSlide>
-                <img src={slide_image_7} alt="slide_img"/>
+                <img src={slide_image_8} alt="slide_img" onClick={handleNavThemeClick(8)}/>
             </SwiperSlide>
 </div>
            <div className='slider-controler'>
