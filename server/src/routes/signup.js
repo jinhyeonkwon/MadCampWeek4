@@ -36,10 +36,11 @@ router.post('/', async (req, res) => {
         }
      }
     );
+
  
     // 토큰 생성
-    const token = jwt.sign({ id:user.Id,name:user.Name,email:user.Email}, process.env.SECRET_KEY, {
-     expiresIn: '1h',})
+    const token = jwt.sign({ id:user.Id,name:user.Name,email:user.Email,class:user.Class}, process.env.SECRET_KEY, {
+     expiresIn: '12h',})
     console.log('회원가입 성공: ', { name, email, password });
     res.status(200).json({ token }); // 토큰 전달
   } catch (error) {

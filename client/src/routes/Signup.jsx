@@ -5,8 +5,7 @@ import { useNavigate } from 'react-router-dom';
 function Signup(){
   const navigate=useNavigate()
   const port = process.env.EXPRESS_PORT;
-  const API_URL = `http://localhost:${port}`;
-
+  const API_URL = 'http://localhost:8000'
   const [name,setName]=useState('')
    const [pw, setPw]=useState('')
    const [email, setEmail]=useState('')
@@ -123,43 +122,45 @@ function Signup(){
   
  
   return(
-     <div
-     style={{
-       display: 'flex',
-       justifyContent: 'center',
-       alignItems: 'center',
-       width: '100%',
-       height: '100vh',
-     
-     }}
-   >
-    <div>
-       <label>Email</label>
-       <input type="email" value={email} onChange={(e)=>{setEmail(e.target.value);
+    <div className="column">
+        <img className="MainPage"  src="/img/MainPage.png"></img>
+    <div className="SignupContainer">
+            <span className="SignupTitle">서비스 이름</span>
+            <div className='SignupInputContainer'>
+             <div className="SignupEmail">
+            <span className="ModalSubTitle">이메일</span>
+       <input type="email" className="SignupEmail"value={email} onChange={(e)=>{setEmail(e.target.value);
         emailCheck(e.target.value)}} disabled={isVerified}/>
-       <br/>
-       <label>name</label>
-       <input type="name" value={name} onChange={handleName} disabled={isVerified}/>
-       <br/>
-       <label>Class</label>
-       <input type="class" value={userclass} onChange={(e)=>{setUserClass(e.target.value);
+       </div>
+       <div className='SignupName'>
+       <span className="ModalSubTitle">이름</span>
+       <input type="name" className="ModalId"value={name} onChange={handleName} disabled={isVerified}/>
+       </div>
+       <div className='SignupClass'>
+       <span className="ModalSubTitle">클래스</span>
+       <input type="class" className="ModalId"value={userclass} onChange={(e)=>{setUserClass(e.target.value);
         }} disabled={isVerified}/>
-        <br/>
+        </div>
+
        
        <button type="submit" onClick={handleVerify} disabled={isVerified}>인증</button>
     <br/>
-    <label>userid</label> 
-        <input type="userid" value={userid} onChange={handleUserId} /> 
-       <br/>
-       <label>Password</label>
-       <input type="password" value={pw} onChange={(e)=>{setPw(e.target.value);
+    <div className='SignupId'>
+    <span className="ModalSubTitle">아이디</span>
+        <input type="userid"className="ModalId" value={userid} onChange={handleUserId} /> 
+        </div>
+        <div className='SignupPw'>
+       <span className="ModalSubTitle">비밀번호</span>
+       <input type="password" className="ModalId"value={pw} onChange={(e)=>{setPw(e.target.value);
         }} />
-      
-      
-        <br/>
+     </div>
        <button type="submit" onClick={handleSignup}>회원 가입</button>
-    </div>
+
    </div>
+ 
+   </div>
+  
+</div>
   
   )
 }

@@ -39,16 +39,18 @@ function Modal(){
         <div className="ModalContainer">
             <span className="ModalTitle">서비스 이름</span>
             <div className='ModalInputContainer'>
+              <div className='ModalID'>
             <span className="ModalSubTitle">아이디</span>
-            <input type="userid" value={userid} onChange={(e)=>{setUserId(e.target.value);}}/>
-           
-         
+            <input type="userid" className="ModalId"value={userid} onChange={(e)=>{setUserId(e.target.value);}}/>
+           </div>
+         <div className='ModalPW'>
             <span className="ModalSubTitle">비밀번호</span>
-            <input type="password" value={pw} onChange={(e)=>{setPw(e.target.value);}}/>
+            <input type="password" className="ModalPw"value={pw} onChange={(e)=>{setPw(e.target.value);}}/>
+            </div>
             </div>
             <div className='LoginButtonContainer'>
-            <img src="/img/Login.png" onClick={handleLogin}/>
-            <img src="/img/Signup.png" style={{ width: '159px', height: '61px' }} />
+            <img src="/img/Login.png" className="ModalLogin" onClick={handleLogin} />
+            <img src="/img/Signup.png" className="ModalSignup" style={{ width: '159px', height: '61px' }} />
             </div>
         </div>
     )

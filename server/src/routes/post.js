@@ -1,24 +1,53 @@
 import express from "express";
 import { PrismaClient, Prisma } from '@prisma/client';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+if (process.env.ENVIRONMENT === "DEVELOPMENT") {
+   dotenv.config({ path: ".env.development" })
+} else {
+   dotenv.config({ path: ".env.production" })
+}
 
 
 const prisma = new PrismaClient();
 const SECRET_KEY = process.env.SECRET_KEY;
+console.log(SECRET_KEY);
 const router = express.Router();
 
+router.post('/getInfo',async(req,res)=>{
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+      return res.status(400).send('header가 없어요!');
+    }
+    const token = authHeader.split(' ')[1];
+    let decodedToken;
+    try { 
+      decodedToken = jwt.verify(token, SECRET_KEY); 
+      return res.status(200).json({decodedToken: decodedToken})
+    } catch (e) { 
+      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') 
+    }
+   
+  }catch(e){
+
+    console.log(e)
+  }
+});
 // 요청
 router.post('/getquestions', async (req, res) => {
   console.log('/question/getquestions');
   try {
     const authHeader = req.headers.authorization;
-    if (authHeader) {
-      const token = authHeader.split(' ')[1];
+    if (!authHeader) {
+      return res.status(400).send('header가 없어요!');
     }
+    const token = authHeader.split(' ')[1];
     const decodedToken = jwt.verify(token, SECRET_KEY);
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
-
+   
     const { themeId } = req.body;
 
     const user = await prisma.user.findUnique({
@@ -30,15 +59,18 @@ router.post('/getquestions', async (req, res) => {
       return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
     }
 
-    const questionList = prisma.question.findMany(
+    const questionList = await prisma.question.findMany(
       {
         where: {
           Class: userClass,
           ThemeId: themeId,
-        }
+        },
+        include: {
+          author: true,
+        },
       }
     );
-
+   
     return res.status(200).json({ questionList: questionList });
 
   }
@@ -47,13 +79,98 @@ router.post('/getquestions', async (req, res) => {
   }
 });
 
-router.post('/createquestions', async (req, res) => {
-  console.log('/question/createquestions');
+router.post('/getonequestion', async (req, res) => {
+  console.log('/question/getonequestion');
   try {
     const authHeader = req.headers.authorization;
-    if (authHeader) {
-      const token = authHeader.split(' ')[1];
+    console.log(authHeader);
+    if (!authHeader) {
+      return res.status(400).send('header가 없어요!');
     }
+    const token = authHeader.split(' ')[1];
+    console.log('getonequestion) token ' + token);
+    const decodedToken = jwt.verify(token, SECRET_KEY);
+    console.log('getonequestion) decoded key ' + decodedToken);
+    const userClass = decodedToken.class;
+    const userId = decodedToken.id;
+    console.log(`getonequestion) userId: ${userId}, userClass: ${userClass}`);
+
+    const { questionId } = req.body;
+    console.log(`getonequestion) questionId : ${questionId}`);
+
+    const user = await prisma.user.findUnique({
+      where: {
+        Id: userId,
+      }
+    });
+    if (user.Class !== userClass) {
+      return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
+    }
+
+
+    const question = await prisma.question.findUnique(
+      {
+        where: {
+          Id: questionId,
+        }
+      }
+    );
+    console.log(`getonequestion) question.id : ${question.Id}`);
+    if (user.Class !== question.Class) {
+      return res.status(400).send('유저 분반과 질문 분반이 맞지 않습니다!');
+    }
+
+    return res.status(200).json({ question: question });
+
+  }
+  catch (e) {
+    console.log(e);
+    res.status(500).json({error : e});
+  }
+});
+
+router.post('/getoneuser', async (req, res) => {
+  console.log('/post/getoneuser');
+  try {
+    const authHeader = req.headers.authorization;
+    console.log(authHeader);
+    if (!authHeader) {
+      return res.status(400).send('header가 없어요!');
+    }
+    const token = authHeader.split(' ')[1];
+    console.log('getonequestion) token ' + token);
+    const decodedToken = jwt.verify(token, SECRET_KEY);
+    console.log('getonequestion) decoded key ' + decodedToken);
+    const userClass = decodedToken.class;
+
+    const { userId } = req.body;
+
+    const user = await prisma.user.findUnique({
+      where: {
+        Id: userId,
+      }
+    });
+    if (user.Class !== userClass) {
+      return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
+    }
+
+    return res.status(200).json({ user: user });
+
+  }
+  catch (e) {
+    console.log(e);
+    res.status(500).json({error : e});
+  }
+});
+
+router.post('/createquestions', async (req, res) => {
+  console.log('/post/createquestions');
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+      return res.status(400).send('header가 없어요!');
+    }
+    const token = authHeader.split(' ')[1];
     const decodedToken = jwt.verify(token, SECRET_KEY);
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
@@ -92,9 +209,10 @@ router.post('/deletequestions', async (req, res) => {
   console.log('/question/deletequestions');
   try {
     const authHeader = req.headers.authorization;
-    if (authHeader) {
-      const token = authHeader.split(' ')[1];
+    if (!authHeader) {
+      return res.status(400).send('header가 없어요!');
     }
+    const token = authHeader.split(' ')[1];
     const decodedToken = jwt.verify(token, SECRET_KEY);
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
@@ -125,7 +243,7 @@ router.post('/deletequestions', async (req, res) => {
       },
     });
 
-    return res.status(200).json({newQuestionId: newQuestion.Id});
+    return res.status(200).json({isOk: true});
     
   }
   catch (e) {
@@ -137,14 +255,18 @@ router.post('/getcomments', async (req, res) => {
   console.log('/comment/getcomments');
   try {
     const authHeader = req.headers.authorization;
-    if (authHeader) {
-      const token = authHeader.split(' ')[1];
+    if (!authHeader) {
+      return res.status(400).send('header가 없어요!');
     }
+    const token = authHeader.split(' ')[1];
     const decodedToken = jwt.verify(token, SECRET_KEY);
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
-
-    const { questionId } = res.body;
+    console.log(userClass);
+    console.log(userId);
+    
+    const { questionId } = req.body;
+    console.log(`getcomments) questionId : ${questionId}`);
 
     const user = await prisma.user.findUnique({
       where: {
@@ -159,21 +281,27 @@ router.post('/getcomments', async (req, res) => {
         }
       }
     )
-
+    console.log(`fdsffdsfsdf ${question.Class}`);
+  
     if (user.Class !== userClass) {
       return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
-    } else if (userClass !== question.Class) {
-      return res.status(400).send('질문 아이디와 분반이 맞지 않습니다!');
+    }
+    if (userClass !== question.Class) {
+      console.log(`질문 아이디와 분반이 맞지 않습니다! : userClass = ${userClass}, question.Class = ${question.Class}`);
+      return res.status(400).send(`질문 아이디와 분반이 맞지 않습니다! : userClass = ${userClass}, user.Class=${user.Class}`);
     }
 
-    const commentList = prisma.comment.findMany(
+    const commentList = await prisma.comment.findMany(
       {
         where: {
           QuestionId: questionId,
-        }
+        },
+        include: {
+          author: true,
+        },
       }
     );
-
+    console.log(`commentList.length : ${commentList.length}`);
     return res.status(200).json({ commentList: commentList });
 
   }
@@ -188,14 +316,15 @@ router.post('/createcomments', async (req, res) => {
   const utc = curr.getTime() + 9*60*60*1000; // 한국 시간대 맞추려고..
   try {
     const authHeader = req.headers.authorization;
-    if (authHeader) {
-      const token = authHeader.split(' ')[1];
+    if (!authHeader) {
+      return res.status(400).send('header가 없어요!');
     }
+    const token = authHeader.split(' ')[1];
     const decodedToken = jwt.verify(token, SECRET_KEY);
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
 
-    const { questionId, contents } = res.body;
+    const { questionId, contents } = req.body;
 
     const user = await prisma.user.findUnique({
       where: {
@@ -239,9 +368,10 @@ router.post('/deletecomments', async (req, res) => {
   console.log('/comment/deletecomments');
   try {
     const authHeader = req.headers.authorization;
-    if (authHeader) {
-      const token = authHeader.split(' ')[1];
+    if (!authHeader) {
+      return res.status(400).send('header가 없어요!');
     }
+    const token = authHeader.split(' ')[1];
     const decodedToken = jwt.verify(token, SECRET_KEY);
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
