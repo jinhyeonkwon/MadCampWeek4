@@ -58,7 +58,7 @@ function Post() {
               <li>
                 <div className="navbar-brand">
                   <a className="navbar-item" href="https://geeksforgeeks.org">
-                    <img src="/img/Login.png" />
+                    <img src="/img/Login.svg" />
                   </a>
         
                   <div className="navbar-burger" data-target="navBackgroundDemo1">
@@ -91,13 +91,12 @@ function Post() {
           <ul>
             <li>
               <div className='navbar-item nav-link'>
-                <img src="/img/Logout.png" onClick={handleLogout}/>
+                <img src="/img/Logout.svg" onClick={handleLogout}/>
               </div>
             </li>
           </ul>
         </div>
       </nav>
-      <img className="PostImage" src="/img/쌍둥이자리.png" />
       <video className="PostVideo" autoPlay loop muted>
         <source src="/video/milkyway2.mp4" type="video/mp4" />
       </video>

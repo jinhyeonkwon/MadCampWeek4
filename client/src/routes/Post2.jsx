@@ -10,13 +10,13 @@ import 'swiper/css/effect-coverflow'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 
-import slide_image_1 from "../assets/img/img_1.png"
-import slide_image_2 from "../assets/img/img_2.png"
-import slide_image_3 from "../assets/img/img_3.png"
-import slide_image_4 from "../assets/img/img_4.png"
-import slide_image_5 from "../assets/img/img_5.png"
-import slide_image_6 from "../assets/img/img_6.png"
-import slide_image_7 from "../assets/img/img_7.png"
+import slide_image_1 from "../assets/img/img_1.svg"
+import slide_image_2 from "../assets/img/img_2.svg"
+import slide_image_3 from "../assets/img/img_3.svg"
+import slide_image_4 from "../assets/img/img_4.svg"
+import slide_image_5 from "../assets/img/img_5.svg"
+import slide_image_6 from "../assets/img/img_6.svg"
+import slide_image_7 from "../assets/img/img_7.svg"
 
 function Post2(){
   

@@ -1,8 +1,8 @@
 import React,{useState,useEffect} from 'react';
 import Header from './ThemeHeader';
 import axios from 'axios';
-import image1 from '../assets/img/img_1.png';
-import back from "../assets/img/back.png";
+import image1 from '../assets/img/img_1.svg';
+import back from "../assets/img/back.svg";
 const API_URL = 'http://localhost:8000';
 import Modals from './Modals';
 
@@ -119,7 +119,7 @@ const handleDelete=async(event,id)=>{
        </section>
        <section className='ThemeRight' style={{flexGrow: '7'}}>
      
-       <img src="/img/plus.png" style={{ display: 'block', marginLeft: 'auto', width:'30px', height:'30px',position: 'absolute', 
+       <img src="/img/plus.svg" style={{ display: 'block', marginLeft: 'auto', width:'30px', height:'30px',position: 'absolute', 
           right: 0,}} onClick={showModal}/>
       <div className="question-list" style={{display:'flex',flexDirection:'column',zIndex:'2', height: '400px', overflowY: 'scroll'}}>{questionList}</div>
        </section>

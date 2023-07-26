@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import '../App.css'
+import '../css/Login.css'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -41,17 +42,17 @@ function Modal(){
             <span className="ModalTitle">서비스 이름</span>
             <div className='ModalInputContainer'>
               <div className='ModalID'>
-            <span className="ModalSubTitle">아이디</span>
-            <input type="userid" className="ModalId"value={userid} onChange={(e)=>{setUserId(e.target.value);}}/>
-           </div>
-         <div className='ModalPW'>
-            <span className="ModalSubTitle">비밀번호</span>
-            <input type="password" className="ModalPw"value={pw} onChange={(e)=>{setPw(e.target.value);}}/>
+              <span className="ModalSubTitle">아이디</span>
+              <input type="userid" className="ModalId"value={userid} onChange={(e)=>{setUserId(e.target.value);}}/>
             </div>
+            <div className='ModalPW'>
+                <span className="ModalSubTitle">비밀번호</span>
+                <input type="password" className="ModalPw"value={pw} onChange={(e)=>{setPw(e.target.value);}}/>
             </div>
             <div className='LoginButtonContainer'>
-            <img src="/img/Login.png" className="ModalLogin" onClick={handleLogin} />
-            <img src="/img/Signup.png" className="ModalSignup" style={{ width: '159px', height: '61px' }} />
+                <img src="/img/Login.svg" className="ModalLogin" onClick={handleLogin} />
+                <img src="/img/Signup.svg" className="ModalSignup" />
+                </div>
             </div>
         </div>
     )

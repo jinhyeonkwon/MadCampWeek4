@@ -17,7 +17,7 @@ function Main() {
         src="/img/Component 1.png"
         onClick={navLogin}
       ></img> */}
-  <Modal/>
+      <Modal/>
       <img className="MainPage" src="/img/MainPage.png"></img>
     </div>
   )

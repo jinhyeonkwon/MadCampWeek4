@@ -27,6 +27,13 @@
   font-style: normal;
 }
 
+html, body, #root, .App {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
 .ink {
   font-family: InkLipquid;
 }
@@ -53,6 +60,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100vh;
 }
 
 .MainPage {
@@ -62,10 +70,10 @@
 }
 /*짱입니다!!!!!*/
 .MainBox {
-  border: 2px solid white;
+  /*border: 2px solid white;*/
   padding: 20px;
-  width: 500px;
-  height: 500px;
+  /*width: 500px;
+  height: 500px;*/
   position: absolute;
   top: 50%;
   left: 50%;
@@ -96,88 +104,7 @@
   left: 40%;
   z-index: 2;
 }
-.ModalContainer {
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
-  border: 4px solid #FFFFFF;
-  padding: 20px;
-  box-sizing: border-box;
-  background-color: transparent;
-  width: 590px;
-  height: 627px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-}
 
-.ModalTitle {
-  position: absolute;
-
-margin-top: 5%;
-left:30%;
-top: 10%;
-font-family: 'InkLipquid';
-  display: block;
-  font-style: normal;
-font-weight: 200;
-font-size: 50px;
-line-height: 68px;
-/* identical to box height */
-text-align: center;
-
-color: #FFFFFF;
-
-}
-
-.ModalSubTitle {
-  display: flex;
-  font-size: 25px;
-  margin-right: 10px;
-  color: #fff;
-  font-family:'Myeongjo30' ;
-  margin-left: -7%;
-}
-
-
-
-.LoginButtonContainer {
-  display:flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-.ModalInputContainer{
-  margin-top: 12%;
-  position: absolute;
-  top:25%;
-  left:15%;
-  width: 400px; 
-}
-.ModalID,.ModalPW{
-  display: flex;
-  align-items: center;
-  margin-top: 10%;
-}
-
- .ModalId{
-
-  width:300px;
-  margin-left: 10%;
-  background-color: transparent;
-  border: none;
-  border-bottom: 3px solid white;
-
-}
-.ModalPw{
-width:300px;
-  margin-left: 3%;
-  background-color: transparent;
-  border: none;
-  border-bottom: 3px solid white;
-
-} */
 .PostContainer {
   position: relative;
   width: 100%;
@@ -233,16 +160,6 @@ width:300px;
 .PostImage1-clicked {
   transform: perspective(500px) rotateX(20deg) scale(3.0);/* 이미지 크기를 조절할 수 있습니다 */
   transition: transform 0.5s ease-in-out; /* 0.5초 동안 애니메이션 효과가 지속됩니다 */
-}
-.ModalLogin{
-  margin-top: 72%;
-  margin-left: 10%;
-}
-.ModalSignup{
-  margin-top:77%;
-
-  margin-right: 14%;
-  
 }
 .SignupContainer {
   /* display: flex;
@@ -441,7 +358,6 @@ header {
 .question-list {
   -ms-overflow-style: none;
   scrollbar-width: none;
-=======
   margin-top: 20%;
   margin-left: 5%;
   margin-right: 5%;

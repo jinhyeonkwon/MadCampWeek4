@@ -41,12 +41,12 @@ function ThemeHeader() {
     <header>
       <div className="userInfo">
         <div className="userProfile">
-          <img src="./img/profile.png" alt="Profile" />
+          <img src="./img/profile.svg" alt="Profile" />
           <span className='ThemeName'>
             {userClass}분반 {userName}
           </span>
         </div>
-        <img className="logoutBtn" src="./img/logout.png" alt="Logout"  />
+        <img className="logoutBtn" src="./img/logout.svg" alt="Logout"  />
       </div>
       <span className="ThemeTitle">{userClass}분반 밤하늘</span>
     </header>

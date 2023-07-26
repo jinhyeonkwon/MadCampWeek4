@@ -58,7 +58,7 @@ router.post('/getquestions', async (req, res) => {
     const user = await prisma.user.findUnique({
       where: {
         Id: userId,
-      }
+      },
     });
     if (user.Class !== userClass) {
       return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
@@ -72,11 +72,17 @@ router.post('/getquestions', async (req, res) => {
         },
         include: {
           author: true,
+          comments: true,
         },
       }
     );
+
+    const questionListWithCommentCount = questionList.map((question) => ({
+      ...question,
+      commentCnt: question.comments.length,
+    }));
    
-    return res.status(200).json({ questionList: questionList });
+    return res.status(200).json({ questionList: questionListWithCommentCount });
 
   }
   catch (e) {

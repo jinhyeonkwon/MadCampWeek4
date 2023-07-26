@@ -1,0 +1,93 @@
+.ModalContainer {
+  display: flex;
+  flex-direction: column;
+  border: 4px solid #FFFFFF;
+  padding: 20px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  background-color: transparent;
+  position: absolute;
+  /*max-width: 90vw;
+  min-width: 25vw;
+  min-height: 20vh;
+  max-height: 90vh;*/
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  overflow: hidden;
+}
+
+.ModalTitle {
+  margin: 0 auto;
+  font-family: 'InkLipquid';
+  display: block;
+  font-style: normal;
+  font-weight: 200;
+  font-size: 50px;
+  line-height: 68px;
+  /* identical to box height */
+  text-align: center;
+
+  color: #FFFFFF;
+
+}
+
+.ModalSubTitle {
+  display: flex;
+  margin-right: 10px;
+  width: 6em;
+  color: #fff;
+  font-family:'Myeongjo30';
+  font-size: large;
+  white-space: nowrap;
+}
+
+
+
+.LoginButtonContainer {
+  display:flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  max-width: 95%;
+}
+.ModalInputContainer{
+  margin:auto;
+  max-width: 95%;
+}
+.ModalID, .ModalPW{
+  display: flex;
+  align-items: center;
+  margin-top: 10%;
+}
+
+ .ModalId{
+  margin-left: 3%;
+  background-color: transparent;
+  border: none;
+  border-bottom: 3px solid white;
+  color: #fff;
+  font-family: 'Myeongjo20';
+  font-size: x-large
+
+}
+
+.ModalPw{
+  margin-left: 3%;
+  background-color: transparent;
+  border: none;
+  border-bottom: 3px solid white;
+  color: #fff;
+  font-family: 'Myeongjo20';
+  font-size: x-large
+}
+
+.LoginButtonContainer {
+  float: center;
+  margin: auto;
+  margin-top: 10%;
+}
+
+* {
+  overflow: hidden;
+}
