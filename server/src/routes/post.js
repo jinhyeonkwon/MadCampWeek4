@@ -44,7 +44,12 @@ router.post('/getquestions', async (req, res) => {
       return res.status(400).send('header가 없어요!');
     }
     const token = authHeader.split(' ')[1];
-    const decodedToken = jwt.verify(token, SECRET_KEY);
+    let decodedToken; 
+    try { 
+      decodedToken = jwt.verify(token, SECRET_KEY); 
+    } catch (e) { 
+      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') 
+    }
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
    
@@ -89,7 +94,12 @@ router.post('/getonequestion', async (req, res) => {
     }
     const token = authHeader.split(' ')[1];
     console.log('getonequestion) token ' + token);
-    const decodedToken = jwt.verify(token, SECRET_KEY);
+    let decodedToken; 
+    try { 
+      decodedToken = jwt.verify(token, SECRET_KEY); 
+    } catch (e) { 
+      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') 
+    }
     console.log('getonequestion) decoded key ' + decodedToken);
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
@@ -112,10 +122,13 @@ router.post('/getonequestion', async (req, res) => {
       {
         where: {
           Id: questionId,
+        },
+        include: {
+          author: true,
         }
       }
     );
-    console.log(`getonequestion) question.id : ${question.Id}`);
+    console.log(`getonequestion) question.author.Name : ${question.author.Name}`);
     if (user.Class !== question.Class) {
       return res.status(400).send('유저 분반과 질문 분반이 맞지 않습니다!');
     }
@@ -163,6 +176,103 @@ router.post('/getoneuser', async (req, res) => {
   }
 });
 
+router.post('/getonequestion', async (req, res) => {
+  console.log('/question/getonequestion');
+  try {
+    const authHeader = req.headers.authorization;
+    console.log(authHeader);
+    if (!authHeader) {
+      return res.status(400).send('header가 없어요!');
+    }
+    const token = authHeader.split(' ')[1];
+    console.log('getonequestion) token ' + token);
+    let decodedToken; 
+    try { 
+      decodedToken = jwt.verify(token, SECRET_KEY); 
+    } catch (e) { 
+      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') 
+    }
+    console.log('getonequestion) decoded key ' + decodedToken);
+    const userClass = decodedToken.class;
+    const userId = decodedToken.id;
+    console.log(`getonequestion) userId: ${userId}, userClass: ${userClass}`);
+
+    const { questionId } = req.body;
+    console.log(`getonequestion) questionId : ${questionId}`);
+
+    const user = await prisma.user.findUnique({
+      where: {
+        Id: userId,
+      }
+    });
+    if (user.Class !== userClass) {
+      return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
+    }
+
+
+    const question = await prisma.question.findUnique(
+      {
+        where: {
+          Id: questionId,
+        },
+        include: {
+          author: true,
+        }
+      }
+    );
+    console.log(`getonequestion) question.author.Name : ${question.author.Name}`);
+    if (user.Class !== question.Class) {
+      return res.status(400).send('유저 분반과 질문 분반이 맞지 않습니다!');
+    }
+
+    return res.status(200).json({ question: question });
+
+  }
+  catch (e) {
+    console.log(e);
+    res.status(500).json({error : e});
+  }
+});
+
+router.post('/getoneuser', async (req, res) => {
+  console.log('/post/getoneuser');
+  try {
+    const authHeader = req.headers.authorization;
+    console.log(authHeader);
+    if (!authHeader) {
+      return res.status(400).send('header가 없어요!');
+    }
+    const token = authHeader.split(' ')[1];
+    console.log('getonequestion) token ' + token);
+    let decodedToken; 
+    try { 
+      decodedToken = jwt.verify(token, SECRET_KEY); 
+    } catch (e) { 
+      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') 
+    }
+    console.log('getonequestion) decoded key ' + decodedToken);
+    const userClass = decodedToken.class;
+
+    const { userId } = req.body;
+
+    const user = await prisma.user.findUnique({
+      where: {
+        Id: userId,
+      }
+    });
+    if (user.Class !== userClass) {
+      return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
+    }
+
+    return res.status(200).json({ user: user });
+
+  }
+  catch (e) {
+    console.log(e);
+    res.status(500).json({error : e});
+  }
+});
+
 router.post('/createquestions', async (req, res) => {
   console.log('/post/createquestions');
   try {
@@ -171,7 +281,12 @@ router.post('/createquestions', async (req, res) => {
       return res.status(400).send('header가 없어요!');
     }
     const token = authHeader.split(' ')[1];
-    const decodedToken = jwt.verify(token, SECRET_KEY);
+    let decodedToken; 
+    try { 
+      decodedToken = jwt.verify(token, SECRET_KEY); 
+    } catch (e) { 
+      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') 
+    }
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
 
@@ -213,7 +328,12 @@ router.post('/deletequestions', async (req, res) => {
       return res.status(400).send('header가 없어요!');
     }
     const token = authHeader.split(' ')[1];
-    const decodedToken = jwt.verify(token, SECRET_KEY);
+    let decodedToken; 
+    try { 
+      decodedToken = jwt.verify(token, SECRET_KEY); 
+    } catch (e) { 
+      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') 
+    }
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
 
@@ -259,7 +379,12 @@ router.post('/getcomments', async (req, res) => {
       return res.status(400).send('header가 없어요!');
     }
     const token = authHeader.split(' ')[1];
-    const decodedToken = jwt.verify(token, SECRET_KEY);
+    let decodedToken; 
+    try { 
+      decodedToken = jwt.verify(token, SECRET_KEY); 
+    } catch (e) { 
+      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') 
+    }
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
     console.log(userClass);
@@ -320,7 +445,12 @@ router.post('/createcomments', async (req, res) => {
       return res.status(400).send('header가 없어요!');
     }
     const token = authHeader.split(' ')[1];
-    const decodedToken = jwt.verify(token, SECRET_KEY);
+    let decodedToken; 
+    try { 
+      decodedToken = jwt.verify(token, SECRET_KEY); 
+    } catch (e) { 
+      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') 
+    }
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
 
@@ -364,15 +494,20 @@ router.post('/createcomments', async (req, res) => {
   }
 });
 
-router.post('/deletecomments', async (req, res) => {
-  console.log('/comment/deletecomments');
+router.post('/deletecomment', async (req, res) => {
+  console.log('/comment/deletecomment');
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
       return res.status(400).send('header가 없어요!');
     }
     const token = authHeader.split(' ')[1];
-    const decodedToken = jwt.verify(token, SECRET_KEY);
+    let decodedToken; 
+    try { 
+      decodedToken = jwt.verify(token, SECRET_KEY); 
+    } catch (e) { 
+      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') 
+    }
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
 
@@ -407,6 +542,27 @@ router.post('/deletecomments', async (req, res) => {
   }
   catch (e) {
     res.status(500).json({error : e});
+  }
+});
+
+router.post('/getInfo',async(req,res)=>{
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+      return res.status(400).send('header가 없어요!');
+    }
+    const token = authHeader.split(' ')[1];
+    let decodedToken;
+    try { 
+      decodedToken = jwt.verify(token, SECRET_KEY); 
+      return res.status(200).json({decodedToken: decodedToken})
+    } catch (e) { 
+      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') 
+    }
+   
+  }catch(e){
+
+    console.log(e)
   }
 });
 

@@ -13,7 +13,7 @@ router.post('/getcomments', async (req, res) => {
     if (authHeader) {
       const token = authHeader.split(' ')[1];
     }
-    const decodedToken = jwt.verify(token, SECRET_KEY);
+    let decodedToken; try { decodedToken = jwt.verify(token, SECRET_KEY); } catch (e) { return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') }
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
 
@@ -64,7 +64,7 @@ router.post('/createcomments', async (req, res) => {
     if (authHeader) {
       const token = authHeader.split(' ')[1];
     }
-    const decodedToken = jwt.verify(token, SECRET_KEY);
+    let decodedToken; try { decodedToken = jwt.verify(token, SECRET_KEY); } catch (e) { return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') }
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
 
@@ -115,7 +115,7 @@ router.post('/deletecomments', async (req, res) => {
     if (authHeader) {
       const token = authHeader.split(' ')[1];
     }
-    const decodedToken = jwt.verify(token, SECRET_KEY);
+    let decodedToken; try { decodedToken = jwt.verify(token, SECRET_KEY); } catch (e) { return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') }
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
 
