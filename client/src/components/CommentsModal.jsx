@@ -1,5 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import '../App.css'
+import '../css/CommentsModal.css'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,6 +32,11 @@ function Modal({ isOpen, qId }){
           'Content-Type': 'application/json',
         }
       });
+      if (response.status === 404) { // not found
+        alert("404 Not Found! 홈 화면으로 이동합니다.");
+        window.location.href = `${window.location.href.replace('/post', '')}`; // 리다이렉트
+        return;
+      }
       if (response.status === 401) { // 토큰 만료
         alert("로그인이 만료되었습니다! 홈 화면으로 이동합니다."); // 왜 2번 불러지는지는 모르겠지만.. 작동
         window.location.href = `${window.location.href.replace('/post', '')}`; // 리다이렉트
@@ -61,6 +67,16 @@ function Modal({ isOpen, qId }){
           console.log(response.data.question);
           setQuestion(response.data.question);
         }
+        if (response.status === 404) { // not found
+          alert("404 Not Found! 홈 화면으로 이동합니다.");
+          window.location.href = `${window.location.href.replace('/post', '')}`; // 리다이렉트
+          return;
+        }
+        if (response.status === 401) { // 토큰 만료
+          alert("로그인이 만료되었습니다! 홈 화면으로 이동합니다."); // 왜 2번 불러지는지는 모르겠지만.. 작동
+          window.location.href = `${window.location.href.replace('/post', '')}`; // 리다이렉트
+          return;
+        }
     };
     asyncFun().catch((e) => window.alert(`AN ERROR OCCURED! ${e}`));
   };
@@ -82,6 +98,16 @@ function Modal({ isOpen, qId }){
         console.log(`cList : ${cList}`);
         setCList(response.data.commentList);
       }
+      if (response.status === 404) { // not found
+        alert("404 Not Found! 홈 화면으로 이동합니다.");
+        window.location.href = `${window.location.href.replace('/post', '')}`; // 리다이렉트
+        return;
+      }
+      if (response.status === 401) { // 토큰 만료
+        alert("로그인이 만료되었습니다! 홈 화면으로 이동합니다."); // 왜 2번 불러지는지는 모르겠지만.. 작동
+        window.location.href = `${window.location.href.replace('/post', '')}`; // 리다이렉트
+        return;
+      }
     };
     asyncFun().catch((e) => window.alert(`AN ERROR OCCURED! ${e}`));
   };
@@ -100,6 +126,11 @@ function Modal({ isOpen, qId }){
 
       if (response.status === 401) { // 토큰 만료
         alert("로그인이 만료되었습니다! 홈 화면으로 이동합니다."); // 왜 2번 불러지는지는 모르겠지만.. 작동
+        window.location.href = `${window.location.href.replace('/post', '')}`; // 리다이렉트
+        return;
+      }
+      if (response.status === 404) { // not found
+        alert("404 Not Found! 홈 화면으로 이동합니다.");
         window.location.href = `${window.location.href.replace('/post', '')}`; // 리다이렉트
         return;
       }
@@ -132,6 +163,16 @@ function Modal({ isOpen, qId }){
         setNewContents('');
         setReload((reload === 0) ? 1 : 0); // 새로 로딩해라!
       }
+      if (response.status === 404) { // not found
+        alert("404 Not Found! 홈 화면으로 이동합니다.");
+        window.location.href = `${window.location.href.replace('/post', '')}`; // 리다이렉트
+        return;
+      }
+      if (response.status === 401) { // 토큰 만료
+        alert("로그인이 만료되었습니다! 홈 화면으로 이동합니다."); // 왜 2번 불러지는지는 모르겠지만.. 작동
+        window.location.href = `${window.location.href.replace('/post', '')}`; // 리다이렉트
+        return;
+      }
 
     };
     asyncFun().catch((e) => window.alert(`AN ERROR OCCURED! ${e}`));
@@ -155,12 +196,10 @@ function Modal({ isOpen, qId }){
         </div>
       </header>
       <div className="card-content">
-        <div style={{marginBottom: '3px'}}>{comment.Contents}</div>
-        <div>{`작성 시각 : ${new Date(comment.CreatedAt).toLocaleString()}`}</div>
+        <div style={{marginBottom: '3px', overflowWrap: 'normal'}}>{comment.Contents}</div>
+        <img src="/img/Delete.svg" type='button' style={(userId === comment.author.Id) ? {float: 'right', marginRight: '0px', marginTop: '10px'} : {display:'none'}} onClick={(e) => deleteComment(e, comment.Id)} />
+        <div style={{marginTop: '10px'}}>{`작성 시각 : ${new Date(comment.CreatedAt).toLocaleString()}`}</div>
       </div>
-      <footer className="card-footer" style={(userId === comment.author.Id) ? {} : {display: 'none'}}>
-        <img src="/img/Delete.svg" type='button' onClick={(e) => deleteComment(e, comment.Id)} />
-      </footer>
     </div>
   ));
 
@@ -183,13 +222,17 @@ function Modal({ isOpen, qId }){
               <section className="modal-card-body myeongjo20">
                 {/* 추가 부분 */}
                 <div className="card" style={{marginTop:'5px', marginBottom:'5px'}}>
-                  <div style={{marginBottom: '3px'}}>
-                    <textarea className='input myeongjo20' rows='11' style={{backgroundColor: 'rgba(0, 0, 0)', opacity: '0.8'}} required aria-required="true" type='text' placeholder='생각을 쓰세요!' value={newContents} onChange={(e) => setNewContents(e.target.value)}></textarea>
-                  </div>
+                  <span style={{marginBottom: '10px', width: '100%'}}>
+                    <textarea className='myeongjo20' rows='11' style={{backgroundColor: 'rgba(0, 0, 0, 0.8)', padding: '5px'}} required aria-required="true" type='text' placeholder='우리 반 사람들과 생각을 나눠보아요!' value={newContents} onChange={(e) => setNewContents(e.target.value)}></textarea>
+                    <div style={{float: 'right'}}>
+                      <img src="/img/CreateComment.svg" type='button' style={{marginTop: '10px', float:'right'}} onClick={(e) => createComment(e, qId)} />
+                    </div>
+                  </span>
                   {/* img로 해서 onClick 달자 */}
-                  <img src="/img/CreateComment.svg" type='button' style={{marginTop: '12px'}} onClick={(e) => createComment(e, qId)} />
                 </div>
-                {cardList}
+                <div className='card-list' style={{marginTop: '50px'}}>
+                  {cardList}
+                </div>
               </section>
             </div>
         </div>
