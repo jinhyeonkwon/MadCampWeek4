@@ -14,6 +14,7 @@ function Modal({ isOpen, qId }){
   const [modalState, SetModalState] = useState(isOpen);
   const [editCommentId, setEditCommentId] = useState(0);
   const [newContents, setNewContents] = useState('');
+  const [reload, setReload] = useState(0); // 이걸 바꿈으로써 reload 시킴
   const token = localStorage.getItem('token');
   let decodedToken;
   const [userId, setUserId] = useState(0);
@@ -30,6 +31,11 @@ function Modal({ isOpen, qId }){
           'Content-Type': 'application/json',
         }
       });
+      if (response.status === 401) { // 토큰 만료
+        alert("로그인이 만료되었습니다! 홈 화면으로 이동합니다."); // 왜 2번 불러지는지는 모르겠지만.. 작동
+        window.location.href = `${window.location.href.replace('/post', '')}`; // 리다이렉트
+        return;
+      }
       decodedToken = response.data.decodedToken;
       setUserId(decodedToken.id);
       console.log(`userId : ${userId}`);
@@ -92,8 +98,15 @@ function Modal({ isOpen, qId }){
         }
       });
 
+      if (response.status === 401) { // 토큰 만료
+        alert("로그인이 만료되었습니다! 홈 화면으로 이동합니다."); // 왜 2번 불러지는지는 모르겠지만.. 작동
+        window.location.href = `${window.location.href.replace('/post', '')}`; // 리다이렉트
+        return;
+      }
+
       if (response.status === 200) {
         console.log('댓글 삭제 성공');
+        setReload((reload === 0) ? 1 : 0); // 새로 로딩해라!
       }
 
     };
@@ -106,7 +119,7 @@ function Modal({ isOpen, qId }){
     const asyncFun = async () => {
       const response = await axios.post(API_URL+'/post/createcomments', {
         questionId: questionId,
-        contents: newContents,
+        contents: newContents.replaceAll("<br>", "\n"),
       }, {
         headers: {
           Authorization: `Bearer ${access_token}`,
@@ -116,6 +129,8 @@ function Modal({ isOpen, qId }){
 
       if (response.status === 200) {
         console.log('댓글 등록 성공');
+        setNewContents('');
+        setReload((reload === 0) ? 1 : 0); // 새로 로딩해라!
       }
 
     };
@@ -130,27 +145,22 @@ function Modal({ isOpen, qId }){
     getComments();
     console.log(`cList : ${cList}`);
 
-  }, []);
+  }, [reload]);
 
   cardList = cList.map((comment) => (
-    <div className="card" style={{marginTop:'10px', marginBottom:'10px'}}>
-      <form onSubmit={(event) => console.log(event)}>
-        <header className="card-header">
-          <div style={{marginLeft: '10px'}}>
-          {`${comment.author.Name} `}  
-          </div>
-          <div style={{align: 'right'}}>
-            {`${comment.CreatedAt}`}
-          </div>
-        </header>
-        <div className="card-content">
-          {comment.Contents}
-          {`userId : ${userId}, comment.author.Id : ${comment.author.Id}`}
+    <div className="card comment-card">
+      <header className="card-header">
+        <div style={{marginLeft: '20px', marginTop: '10px'}}>
+        {`${comment.author.Name} `}  
         </div>
-        <footer className="card-footer" style={(userId === comment.author.Id) ? {} : {display: 'none'}}>
-          <button style={{marginTop: '7px', marginLeft:'5px', marginRight:'5px'}} className="button" onClick={(event) => deleteComment(event, comment.Id)}>삭제</button>
-        </footer>
-      </form>
+      </header>
+      <div className="card-content">
+        <div style={{marginBottom: '3px'}}>{comment.Contents}</div>
+        <div>{`작성 시각 : ${new Date(comment.CreatedAt).toLocaleString()}`}</div>
+      </div>
+      <footer className="card-footer" style={(userId === comment.author.Id) ? {} : {display: 'none'}}>
+        <img src="/img/Delete.svg" type='button' onClick={(e) => deleteComment(e, comment.Id)} />
+      </footer>
     </div>
   ));
 
@@ -158,23 +168,26 @@ function Modal({ isOpen, qId }){
       
         <div className={`modal${modalState ? ' is-active' : ""}`}>
             <div className="modal-background"></div>
-            <div className="modal-card is-transparent">
+            <div className="modal-card">
               {/* 댓글 띄우는 부분 */}
               <header className='modal-card-head ink large-text'>
-                <p>{question.Contents}</p>&nbsp;
-                <p>{question.author ? `질문 작성자 : ${question.author.Name}` : '기본 질문'}</p>
-                <button class="delete" onClick={(e) => SetModalState(false)} aria-label="close" style={{margin: 'auto 0 auto auto'}}></button>
+                <div>
+                  <div className='question-name'>{question.Contents}</div>
+                  <div className='quest'>
+                    {question.author ? `질문 작성자 : ${question.author.Name}` : '기본 질문'}
+                    <img src='/img/CloseButton.svg' class="delete" onClick={(e) => SetModalState(false)} style={{float: 'right', scale: '2', marginRight: '10px'}}></img>
+                  </div>
+                
+                </div>
               </header>
               <section className="modal-card-body myeongjo20">
                 {/* 추가 부분 */}
                 <div className="card" style={{marginTop:'5px', marginBottom:'5px'}}>
-                  <form onSubmit={(event) => createComment(event, qId)}>
-                    <span style={{marginBottom: '3px'}}>
-                      <input className='input myeongjo20' style={{backgroundColor: 'rgba(0, 0, 0)', opacity: '0.8'}} required aria-required="true" type='text' placeholder='생각을 쓰세요!' value={newContents} onChange={(e) => setNewContents(e.target.value)}></input>
-                    </span>
-                    {/* img로 해서 onClick 달자 */}
-                    <button type="submit" className='button' style={{margin: '10px'}}>생각 띄우기</button>
-                  </form>
+                  <div style={{marginBottom: '3px'}}>
+                    <textarea className='input myeongjo20' rows='11' style={{backgroundColor: 'rgba(0, 0, 0)', opacity: '0.8'}} required aria-required="true" type='text' placeholder='생각을 쓰세요!' value={newContents} onChange={(e) => setNewContents(e.target.value)}></textarea>
+                  </div>
+                  {/* img로 해서 onClick 달자 */}
+                  <img src="/img/CreateComment.svg" type='button' style={{marginTop: '12px'}} onClick={(e) => createComment(e, qId)} />
                 </div>
                 {cardList}
               </section>
