@@ -24,7 +24,7 @@ function Modal(){
     
               // 추가 작업 (리다이렉트, 상태 변경 등)
               console.log('로그인에 성공하였습니다.');
-              navigate('/post')
+              navigate('/post2')
             
             } else {
               console.error('토큰을 받지 못했습니다. 다시 시도해주세요.');
@@ -41,18 +41,18 @@ function Modal(){
         <div className="ModalContainer">
             <span className="ModalTitle">서비스 이름</span>
             <div className='ModalInputContainer'>
-              <div className='ModalID'>
-              <span className="ModalSubTitle">아이디</span>
-              <input type="userid" className="ModalId"value={userid} onChange={(e)=>{setUserId(e.target.value);}}/>
-            </div>
-            <div className='ModalPW'>
-                <span className="ModalSubTitle">비밀번호</span>
-                <input type="password" className="ModalPw"value={pw} onChange={(e)=>{setPw(e.target.value);}}/>
+                <div className='ModalID'>
+                    <span className="ModalSubTitle">아이디</span>
+                    <input type="userid" className="ModalId"value={userid} onChange={(e)=>{setUserId(e.target.value);}}/>
+                </div>
+                <div className='ModalPW'>
+                    <span className="ModalSubTitle">비밀번호</span>
+                    <input type="password" className="ModalPw"value={pw} onChange={(e)=>{setPw(e.target.value);}}/>
+                </div>
             </div>
             <div className='LoginButtonContainer'>
                 <img src="/img/Login.svg" className="ModalLogin" onClick={handleLogin} />
                 <img src="/img/Signup.svg" className="ModalSignup" />
-                </div>
             </div>
         </div>
     )

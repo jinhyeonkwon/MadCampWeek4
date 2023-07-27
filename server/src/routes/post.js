@@ -1,21 +1,20 @@
-import express from "express";
+import express from 'express';
 import { PrismaClient, Prisma } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
-if (process.env.ENVIRONMENT === "DEVELOPMENT") {
-   dotenv.config({ path: ".env.development" })
+if (process.env.ENVIRONMENT === 'DEVELOPMENT') {
+  dotenv.config({ path: '.env.development' });
 } else {
-   dotenv.config({ path: ".env.production" })
+  dotenv.config({ path: '.env.production' });
 }
-
 
 const prisma = new PrismaClient();
 const SECRET_KEY = process.env.SECRET_KEY;
 console.log(SECRET_KEY);
 const router = express.Router();
 
-router.post('/getInfo',async(req,res)=>{
+router.post('/getInfo', async (req, res) => {
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
@@ -23,16 +22,14 @@ router.post('/getInfo',async(req,res)=>{
     }
     const token = authHeader.split(' ')[1];
     let decodedToken;
-    try { 
-      decodedToken = jwt.verify(token, SECRET_KEY); 
-      return res.status(200).json({decodedToken: decodedToken})
-    } catch (e) { 
-      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') 
+    try {
+      decodedToken = jwt.verify(token, SECRET_KEY);
+      return res.status(200).json({ decodedToken: decodedToken });
+    } catch (e) {
+      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!');
     }
-   
-  }catch(e){
-
-    console.log(e)
+  } catch (e) {
+    console.log(e);
   }
 });
 // 요청
@@ -44,15 +41,15 @@ router.post('/getquestions', async (req, res) => {
       return res.status(400).send('header가 없어요!');
     }
     const token = authHeader.split(' ')[1];
-    let decodedToken; 
-    try { 
-      decodedToken = jwt.verify(token, SECRET_KEY); 
-    } catch (e) { 
-      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') 
+    let decodedToken;
+    try {
+      decodedToken = jwt.verify(token, SECRET_KEY);
+    } catch (e) {
+      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!');
     }
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
-   
+
     const { themeId } = req.body;
 
     const user = await prisma.user.findUnique({
@@ -64,29 +61,30 @@ router.post('/getquestions', async (req, res) => {
       return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
     }
 
-    const questionList = await prisma.question.findMany(
-      {
-        where: {
-          Class: userClass,
-          ThemeId: themeId,
+    const questionList = await prisma.question.findMany({
+      where: {
+        Class: userClass,
+        ThemeId: themeId,
+      },
+      include: {
+        author: true,
+        comments: true,
+      },
+      orderBy: [
+        {
+          Id: 'asc',
         },
-        include: {
-          author: true,
-          comments: true,
-        },
-      }
-    );
+      ],
+    });
 
     const questionListWithCommentCount = questionList.map((question) => ({
       ...question,
       commentCnt: question.comments.length,
     }));
-   
-    return res.status(200).json({ questionList: questionListWithCommentCount });
 
-  }
-  catch (e) {
-    res.status(500).json({error : e});
+    return res.status(200).json({ questionList: questionListWithCommentCount });
+  } catch (e) {
+    res.status(500).json({ error: e });
   }
 });
 
@@ -100,11 +98,11 @@ router.post('/getonequestion', async (req, res) => {
     }
     const token = authHeader.split(' ')[1];
     console.log('getonequestion) token ' + token);
-    let decodedToken; 
-    try { 
-      decodedToken = jwt.verify(token, SECRET_KEY); 
-    } catch (e) { 
-      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') 
+    let decodedToken;
+    try {
+      decodedToken = jwt.verify(token, SECRET_KEY);
+    } catch (e) {
+      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!');
     }
     console.log('getonequestion) decoded key ' + decodedToken);
     const userClass = decodedToken.class;
@@ -117,34 +115,29 @@ router.post('/getonequestion', async (req, res) => {
     const user = await prisma.user.findUnique({
       where: {
         Id: userId,
-      }
+      },
     });
     if (user.Class !== userClass) {
       return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
     }
 
-
-    const question = await prisma.question.findUnique(
-      {
-        where: {
-          Id: questionId,
-        },
-        include: {
-          author: true,
-        }
-      }
-    );
-    console.log(`getonequestion) question.author.Name : ${question.author.Name}`);
+    const question = await prisma.question.findUnique({
+      where: {
+        Id: questionId,
+      },
+      include: {
+        author: true,
+      },
+    });
+    //console.log(`getonequestion) question.author.Name : ${question.author.Name}`);
     if (user.Class !== question.Class) {
       return res.status(400).send('유저 분반과 질문 분반이 맞지 않습니다!');
     }
 
     return res.status(200).json({ question: question });
-
-  }
-  catch (e) {
+  } catch (e) {
     console.log(e);
-    res.status(500).json({error : e});
+    res.status(500).json({ error: e });
   }
 });
 
@@ -167,18 +160,16 @@ router.post('/getoneuser', async (req, res) => {
     const user = await prisma.user.findUnique({
       where: {
         Id: userId,
-      }
+      },
     });
     if (user.Class !== userClass) {
       return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
     }
 
     return res.status(200).json({ user: user });
-
-  }
-  catch (e) {
+  } catch (e) {
     console.log(e);
-    res.status(500).json({error : e});
+    res.status(500).json({ error: e });
   }
 });
 
@@ -192,11 +183,11 @@ router.post('/getonequestion', async (req, res) => {
     }
     const token = authHeader.split(' ')[1];
     console.log('getonequestion) token ' + token);
-    let decodedToken; 
-    try { 
-      decodedToken = jwt.verify(token, SECRET_KEY); 
-    } catch (e) { 
-      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') 
+    let decodedToken;
+    try {
+      decodedToken = jwt.verify(token, SECRET_KEY);
+    } catch (e) {
+      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!');
     }
     console.log('getonequestion) decoded key ' + decodedToken);
     const userClass = decodedToken.class;
@@ -209,34 +200,31 @@ router.post('/getonequestion', async (req, res) => {
     const user = await prisma.user.findUnique({
       where: {
         Id: userId,
-      }
+      },
     });
     if (user.Class !== userClass) {
       return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
     }
 
-
-    const question = await prisma.question.findUnique(
-      {
-        where: {
-          Id: questionId,
-        },
-        include: {
-          author: true,
-        }
-      }
+    const question = await prisma.question.findUnique({
+      where: {
+        Id: questionId,
+      },
+      include: {
+        author: true,
+      },
+    });
+    console.log(
+      `getonequestion) question.author.Name : ${question.author.Name}`
     );
-    console.log(`getonequestion) question.author.Name : ${question.author.Name}`);
     if (user.Class !== question.Class) {
       return res.status(400).send('유저 분반과 질문 분반이 맞지 않습니다!');
     }
 
     return res.status(200).json({ question: question });
-
-  }
-  catch (e) {
+  } catch (e) {
     console.log(e);
-    res.status(500).json({error : e});
+    res.status(500).json({ error: e });
   }
 });
 
@@ -250,11 +238,11 @@ router.post('/getoneuser', async (req, res) => {
     }
     const token = authHeader.split(' ')[1];
     console.log('getonequestion) token ' + token);
-    let decodedToken; 
-    try { 
-      decodedToken = jwt.verify(token, SECRET_KEY); 
-    } catch (e) { 
-      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') 
+    let decodedToken;
+    try {
+      decodedToken = jwt.verify(token, SECRET_KEY);
+    } catch (e) {
+      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!');
     }
     console.log('getonequestion) decoded key ' + decodedToken);
     const userClass = decodedToken.class;
@@ -264,18 +252,16 @@ router.post('/getoneuser', async (req, res) => {
     const user = await prisma.user.findUnique({
       where: {
         Id: userId,
-      }
+      },
     });
     if (user.Class !== userClass) {
       return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
     }
 
     return res.status(200).json({ user: user });
-
-  }
-  catch (e) {
+  } catch (e) {
     console.log(e);
-    res.status(500).json({error : e});
+    res.status(500).json({ error: e });
   }
 });
 
@@ -287,11 +273,11 @@ router.post('/createquestions', async (req, res) => {
       return res.status(400).send('header가 없어요!');
     }
     const token = authHeader.split(' ')[1];
-    let decodedToken; 
-    try { 
-      decodedToken = jwt.verify(token, SECRET_KEY); 
-    } catch (e) { 
-      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') 
+    let decodedToken;
+    try {
+      decodedToken = jwt.verify(token, SECRET_KEY);
+    } catch (e) {
+      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!');
     }
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
@@ -301,12 +287,14 @@ router.post('/createquestions', async (req, res) => {
     const user = await prisma.user.findUnique({
       where: {
         Id: userId,
-      }
+      },
     });
 
     if (user.Class !== userClass) {
       return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
     }
+
+    console.log('인증까지 성공함!');
 
     const newQuestion = await prisma.question.create({
       data: {
@@ -314,18 +302,16 @@ router.post('/createquestions', async (req, res) => {
         Contents: contents,
         Class: userClass,
         AuthorId: userId,
-      }
-    })
-    
+      },
+    });
 
-    return res.status(200).json({isOk : true});
-    
-  }
-  catch (e) {
-    res.status(500).json({error : e});
+    return res.status(200).json({ isOk: true });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ error: e });
   }
 });
-  
+
 router.post('/deletequestions', async (req, res) => {
   console.log('/question/deletequestions');
   try {
@@ -334,11 +320,11 @@ router.post('/deletequestions', async (req, res) => {
       return res.status(400).send('header가 없어요!');
     }
     const token = authHeader.split(' ')[1];
-    let decodedToken; 
-    try { 
-      decodedToken = jwt.verify(token, SECRET_KEY); 
-    } catch (e) { 
-      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') 
+    let decodedToken;
+    try {
+      decodedToken = jwt.verify(token, SECRET_KEY);
+    } catch (e) {
+      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!');
     }
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
@@ -348,32 +334,35 @@ router.post('/deletequestions', async (req, res) => {
     const user = await prisma.user.findUnique({
       where: {
         Id: userId,
-      }
+      },
     });
 
     const question = await prisma.question.findUnique({
       where: {
         Id: questionId,
-      }
-    })
+      },
+    });
 
     if (user.Class !== userClass) {
       return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
     } else if (userId !== question.AuthorId) {
       return res.status(400).send('본인이 작성한 질문이 아닙니다!');
     }
-
+    const deletedComments = await prisma.comment.deleteMany({
+      where: {
+        QuestionId: questionId,
+      },
+    });
     const deletedQuestion = await prisma.question.delete({
       where: {
         Id: questionId,
       },
     });
 
-    return res.status(200).json({isOk: true});
-    
-  }
-  catch (e) {
-    res.status(500).json({error : e});
+    return res.status(200).json({ isOk: true });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ error: e });
   }
 });
 
@@ -385,77 +374,76 @@ router.post('/getcomments', async (req, res) => {
       return res.status(400).send('header가 없어요!');
     }
     const token = authHeader.split(' ')[1];
-    let decodedToken; 
-    try { 
-      decodedToken = jwt.verify(token, SECRET_KEY); 
-    } catch (e) { 
-      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') 
+    let decodedToken;
+    try {
+      decodedToken = jwt.verify(token, SECRET_KEY);
+    } catch (e) {
+      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!');
     }
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
     console.log(userClass);
     console.log(userId);
-    
+
     const { questionId } = req.body;
     console.log(`getcomments) questionId : ${questionId}`);
 
     const user = await prisma.user.findUnique({
       where: {
         Id: userId,
-      }
+      },
     });
 
-    const question = await prisma.question.findUnique(
-      {
-        where: {
-          Id: questionId,
-        }
-      }
-    )
-    console.log(`fdsffdsfsdf ${question.Class}`);
-  
+    const question = await prisma.question.findUnique({
+      where: {
+        Id: questionId,
+      },
+    });
+
     if (user.Class !== userClass) {
       return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
     }
     if (userClass !== question.Class) {
-      console.log(`질문 아이디와 분반이 맞지 않습니다! : userClass = ${userClass}, question.Class = ${question.Class}`);
-      return res.status(400).send(`질문 아이디와 분반이 맞지 않습니다! : userClass = ${userClass}, user.Class=${user.Class}`);
+      console.log(
+        `질문 아이디와 분반이 맞지 않습니다! : userClass = ${userClass}, question.Class = ${question.Class}`
+      );
+      return res
+        .status(400)
+        .send(
+          `질문 아이디와 분반이 맞지 않습니다! : userClass = ${userClass}, user.Class=${user.Class}`
+        );
     }
 
-    const commentList = await prisma.comment.findMany(
-      {
-        where: {
-          QuestionId: questionId,
-        },
-        include: {
-          author: true,
-        },
-      }
-    );
+    const commentList = await prisma.comment.findMany({
+      where: {
+        QuestionId: questionId,
+      },
+      include: {
+        author: true,
+      },
+    });
     console.log(`commentList.length : ${commentList.length}`);
     return res.status(200).json({ commentList: commentList });
-
-  }
-  catch (e) {
-    res.status(500).json({error : e});
+  } catch (e) {
+    res.status(500).json({ error: e });
   }
 });
 
 router.post('/createcomments', async (req, res) => {
   console.log('/comment/createcomments');
   const curr = new Date();
-  const utc = curr.getTime() + 9*60*60*1000; // 한국 시간대 맞추려고..
+  const utc = curr.getTime() + 9 * 60 * 60 * 1000; // 한국 시간대 맞추려고..
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
       return res.status(400).send('header가 없어요!');
     }
     const token = authHeader.split(' ')[1];
-    let decodedToken; 
-    try { 
-      decodedToken = jwt.verify(token, SECRET_KEY); 
-    } catch (e) { 
-      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') 
+    let decodedToken;
+    try {
+      decodedToken = jwt.verify(token, SECRET_KEY);
+    } catch (e) {
+      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!');
     }
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
@@ -465,22 +453,22 @@ router.post('/createcomments', async (req, res) => {
     const user = await prisma.user.findUnique({
       where: {
         Id: userId,
-      }
+      },
     });
 
-    const question = await prisma.question.findUnique(
-      {
-        where: {
-          Id: questionId,
-        }
-      }
-    )
+    const question = await prisma.question.findUnique({
+      where: {
+        Id: questionId,
+      },
+    });
+    console.log(questionId);
 
     if (user.Class !== userClass) {
       return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
     } else if (userClass !== question.Class) {
       return res.status(400).send('질문 아이디와 분반이 맞지 않습니다!');
     }
+    console.log('dddddd');
 
     const newComment = await prisma.comment.create({
       data: {
@@ -492,11 +480,10 @@ router.post('/createcomments', async (req, res) => {
       },
     });
 
-    return res.status(200).json({newCommentId: newComment.Id});
-    
-  }
-  catch (e) {
-    res.status(500).json({error : e});
+    return res.status(200).json({ newCommentId: newComment.Id });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ error: e });
   }
 });
 
@@ -508,11 +495,11 @@ router.post('/deletecomment', async (req, res) => {
       return res.status(400).send('header가 없어요!');
     }
     const token = authHeader.split(' ')[1];
-    let decodedToken; 
-    try { 
-      decodedToken = jwt.verify(token, SECRET_KEY); 
-    } catch (e) { 
-      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') 
+    let decodedToken;
+    try {
+      decodedToken = jwt.verify(token, SECRET_KEY);
+    } catch (e) {
+      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!');
     }
     const userClass = decodedToken.class;
     const userId = decodedToken.id;
@@ -522,14 +509,14 @@ router.post('/deletecomment', async (req, res) => {
     const user = await prisma.user.findUnique({
       where: {
         Id: userId,
-      }
+      },
     });
 
     const comment = await prisma.comment.findUnique({
       where: {
         Id: commentId,
-      }
-    })
+      },
+    });
 
     if (user.Class !== userClass) {
       return res.status(400).send('유저 아이디와 분반이 맞지 않습니다!');
@@ -543,15 +530,13 @@ router.post('/deletecomment', async (req, res) => {
       },
     });
 
-    return res.status(200).json({isOk: true});
-    
-  }
-  catch (e) {
-    res.status(500).json({error : e});
+    return res.status(200).json({ isOk: true });
+  } catch (e) {
+    res.status(500).json({ error: e });
   }
 });
 
-router.post('/getInfo',async(req,res)=>{
+router.post('/getInfo', async (req, res) => {
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
@@ -559,18 +544,15 @@ router.post('/getInfo',async(req,res)=>{
     }
     const token = authHeader.split(' ')[1];
     let decodedToken;
-    try { 
-      decodedToken = jwt.verify(token, SECRET_KEY); 
-      return res.status(200).json({decodedToken: decodedToken})
-    } catch (e) { 
-      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!') 
+    try {
+      decodedToken = jwt.verify(token, SECRET_KEY);
+      return res.status(200).json({ decodedToken: decodedToken });
+    } catch (e) {
+      return res.status(401).send('토큰이 만료되었거나 유효하지 않습니다!');
     }
-   
-  }catch(e){
-
-    console.log(e)
+  } catch (e) {
+    console.log(e);
   }
 });
-
 
 export default router;

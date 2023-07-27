@@ -1,28 +1,37 @@
-
+html,
+body,
+#root,
+.App {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
 
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Gothic+A1:wght@400;700&family=Gugi&family=Lobster&family=Merriweather:ital,wght@1,400;1,700&family=Nanum+Myeongjo:wght@700;800&display=swap');
 
-@font-face{
-  font-family:"Myeongjo30";
-  src:url("../fonts/210\ 수필명조OTF\ 030.otf")
+@font-face {
+  font-family: 'Myeongjo30';
+  src: url('../fonts/210\ 수필명조OTF\ 030.otf');
 }
-@font-face{
-  font-family:"Myeongjo50";
-  src:url("../fonts/210\ 수필명조OTF\ 050.otf")
+@font-face {
+  font-family: 'Myeongjo50';
+  src: url('../fonts/210\ 수필명조OTF\ 050.otf');
 }
 
-@font-face{
-  font-family:"Myeongjo10";
-  src:url("../fonts/210\ 수필명조OTF\ 010.otf")
+@font-face {
+  font-family: 'Myeongjo10';
+  src: url('../fonts/210\ 수필명조OTF\ 010.otf');
 }
-@font-face{
-  font-family:"Myeongjo20";
-  src:url("../fonts/210\ 수필명조OTF\ 020.otf")
+@font-face {
+  font-family: 'Myeongjo20';
+  src: url('../fonts/210\ 수필명조OTF\ 020.otf');
 }
 
 @font-face {
   font-family: 'InkLipquid';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff') format('woff');
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff')
+    format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -54,20 +63,36 @@ html, body, #root, .App {
 .large-text {
   font-size: x-large;
 }
+.BgImage {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(./img/MainPage2.jpg);
 
-.column {
+  background-size: contain; /* 변경: cover에서 contain으로 */
+  background-position: center center; /* 가운데 정렬 */
+  background-repeat: no-repeat; /* 배경 이미지 반복 없음 */
+
+  z-index: 1;
+}
+/* .column {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-}
+} */
 
-.MainPage {
+/* MainPage {
   width: 100vw;
   height: 100vh;
-  background-size: cover;
-}
+  top: 0;
+  left: 0;
+  background-image: url(./img/MainPage2.jpg);
+  background-size:cover; /* 변경: contain에서 auto로 */
+/* background-position: 0% 30%; /* 배경 이미지의 x, y 좌표를 원하는 위치로 설정 */
+/* background-repeat: no-repeat;
+} */
+
 /*짱입니다!!!!!*/
 .MainBox {
   /*border: 2px solid white;*/
@@ -105,6 +130,84 @@ html, body, #root, .App {
   z-index: 2;
 }
 
+.ModalContainer {
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  border: 4px solid #ffffff;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: transparent;
+  width: 590px;
+  height: 627px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.ModalTitle {
+  position: absolute;
+
+  margin-top: 5%;
+  left: 30%;
+  top: 10%;
+  font-family: 'InkLipquid';
+  display: block;
+  font-style: normal;
+  font-weight: 200;
+  font-size: 50px;
+  line-height: 68px;
+  /* identical to box height */
+  text-align: center;
+
+  color: #ffffff;
+}
+
+.ModalSubTitle {
+  display: flex;
+  font-size: 25px;
+  margin-right: 10px;
+  color: #fff;
+  font-family: 'Myeongjo30';
+  margin-left: -7%;
+}
+
+/* .LoginButtonContainer {
+  display:flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.ModalInputContainer{
+  margin-top: 12%;
+  position: absolute;
+  top:25%;
+  left:30%;
+  width: 1000px; 
+}
+.ModalID,.ModalPW{
+  display: flex;
+  align-items: center;
+  margin-top: 10%;
+}
+
+ .ModalId{
+
+  width:300px;
+  margin-left: 10%;
+  background-color: transparent;
+  border: none;
+  border-bottom: 3px solid white;
+
+}
+.ModalPw{
+width:300px;
+  margin-left: 3%;
+  background-color: transparent;
+  border: none;
+  border-bottom: 3px solid white;
+
 .PostContainer {
   position: relative;
   width: 100%;
@@ -133,7 +236,7 @@ html, body, #root, .App {
   height: 150px;
   object-fit: cover;
   top: 30%;
-  left:45%;
+  left: 45%;
   z-index: 1;
 }
 
@@ -147,9 +250,7 @@ html, body, #root, .App {
   z-index: 1;
 }
 
-
 .PostBackGround {
-
   position: absolute;
   width: 100%;
   height: 100vh;
@@ -158,14 +259,14 @@ html, body, #root, .App {
 }
 
 .PostImage1-clicked {
-  transform: perspective(500px) rotateX(20deg) scale(3.0);/* 이미지 크기를 조절할 수 있습니다 */
+  transform: perspective(500px) rotateX(20deg) scale(3); /* 이미지 크기를 조절할 수 있습니다 */
   transition: transform 0.5s ease-in-out; /* 0.5초 동안 애니메이션 효과가 지속됩니다 */
 }
 .SignupContainer {
   /* display: flex;
   align-items: center;
   justify-content: center; */
-  border: 4px solid #FFFFFF;
+  border: 4px solid #ffffff;
   padding: 20px;
   box-sizing: border-box;
   background-color: transparent;
@@ -177,43 +278,40 @@ html, body, #root, .App {
   transform: translate(-50%, -50%);
   z-index: 10;
 }
-.SignupInputContainer{
+.SignupInputContainer {
   margin-top: 4%;
   position: absolute;
-top:25%;
-left:15%;
-width: 400px; 
+  top: 25%;
+  left: 15%;
+  width: 400px;
 }
 .SignupTitle {
   position: absolute;
 
-margin-top: 1%;
-left:30%;
-top: 10%;
-font-family:'Myeongjo30' ;
+  margin-top: 1%;
+  left: 30%;
+  top: 10%;
+  font-family: 'Myeongjo30';
   display: block;
   font-style: normal;
-font-weight: 200;
-font-size: 50px;
-line-height: 68px;
-/* identical to box height */
-text-align: center;
+  font-weight: 200;
+  font-size: 50px;
+  line-height: 68px;
+  /* identical to box height */
+  text-align: center;
 
-color: #FFFFFF;
-
+  color: #ffffff;
 }
-.SignupEmail, .SignupName,.SignupClass,.SignupId, .SignupPw{
+.SignupEmail,
+.SignupName,
+.SignupClass,
+.SignupId,
+.SignupPw {
   display: flex;
   align-items: center;
   margin-top: 4%;
 }
 
-.container{
-  background-image: url(./img/MainPage2.jpg);
-  width:100vw;
-  height:100vh;
-  background-size: cover;
-}
 /* header{
 
   display: flex;
@@ -222,149 +320,6 @@ color: #FFFFFF;
   z-index: 2;
   
 } */
-.BgImage {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-image: url(./img/MainPage2.jpg);
-  background-size: cover;
-  z-index: 1;
-}
-.ThemeMain {
-  width:100vw;
-  height:100vh;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.ThemeLeft{
-  display: flex;
-  flex-direction: column;
-  z-index:2;
-  margin-left:5%;
-}
-.ThemeRight {
-  display: flex;
-  flex-direction: column;
-  z-index: 2;
-  margin-left: 10%;
-  margin-top:8%;
-  width:100%;
-  height:80%;
-}
-
-.ThemeContent{
-  top:0;
-  left:0;
-  display: flex;
-  flex-direction: row;
-}
-
-header {
-  margin-top:5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-  z-index: 2;
-}
-
-.ThemeTitle {
-  font-size: 5rem;
-  position: absolute;
-  font-family: 'InkLipquid';
-  color: #fff;
-}
-
-.userInfo {
-  
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  right: 0;
-}
-
-.userProfile {
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* 간격을 위해이 속성을 추가합니다 */
-  width: 200px; /* 간격 값 조정을 위해 적절한 너비를 선택합니다 */
-}
-
-.logoutBtn {
-  margin-top: 0.25rem;
-  margin-right: 0.25rem;
-}
-
-.ThemeName {
-  margin-left: 20%;
-  font-size: 2rem;
-  position: absolute;
-  font-family: 'Myeongjo30';
-  color: #fff;
-}
-.logoutBtn{
-  margin-left:23%;
-}
-
-.question-card {
-  display: flex;
-  flex-direction: column;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 16px;
-  border-radius: 8px;
-  margin-bottom: 16px;
-  color: #333;
-  font-family: 'Gothic A1', sans-serif;
-}
-
-.question-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-}
-
-.modal {
-  background-color: #ffffff;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 20px;
-  max-width: 500px;
-  width: 90%;
- 
-}
-.question-list::-webkit-scrollbar {
-  display: none;
-}
-
-.question-list {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  margin-top: 20%;
-  margin-left: 5%;
-  margin-right: 5%;
-}
-
-
-
 
 .navbar {
   position: fixed;
@@ -454,8 +409,8 @@ navbar-start {
   width: 100%;
 }
 
-.navbar-container ul li:hover a {
-}
+/* .navbar-container ul li:hover a {
+} */
 
 .navbar-container ul li:active a {
   transition: none;

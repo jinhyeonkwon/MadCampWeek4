@@ -1,0 +1,75 @@
+.Postcontainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(./img/MainPage2.jpg);
+  background-size: cover;
+  overflow: hidden;
+}
+
+.swiper-container {
+  width: 100vw;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* width: 270px !important; */
+  margin: 0 10px;
+}
+.swiper-wrapper {
+  width: 100vw;
+  margin-left: -30%;
+}
+
+.swiper-slide img {
+  
+width: 270px;
+  object-fit: cover;
+}
+
+.slider-controler {
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.slider-arrow {
+  font-size: 32px;
+  color: #333;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.swiper-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.swiper-pagination-bullet {
+  width: 6px;
+  height: 6px;
+  background-color: #333;
+  opacity: 0.5;
+  margin: 0 5px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1;
+  transform: scale(1.3);
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  opacity: 1 !important; /* 기본 투명도 속성 무시 */
+  z-index: 10 !important; /* 기본 z-index 속성 무시 */
+}

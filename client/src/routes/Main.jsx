@@ -17,8 +17,8 @@ function Main() {
         src="/img/Component 1.png"
         onClick={navLogin}
       ></img> */}
-      <Modal/>
-      <img className="MainPage" src="/img/MainPage.png"></img>
+  <Modal/>
+      <img className="MainPage" src="/img/MainPage.png" style={{backgroundSize:'contain'}}></img>
     </div>
   )
 }

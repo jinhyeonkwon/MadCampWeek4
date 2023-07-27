@@ -1,0 +1,62 @@
+@media screen and (max-width: 1024px) {
+  body {
+    overflow-y: scroll;
+  }
+}
+
+body {
+  overflow-y: hidden;
+}
+
+.themeMain {
+  height: 100vh;
+  box-sizing: border-box;
+  position: absolute;
+  height: 100vh !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.themeContent2 {
+  height: 100%;
+}
+
+.BgImage {
+  background-size: cover;
+}
+
+.ThemeViewPort {
+  clear: both;
+}
+
+.ThemeLeft {
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+  justify-content: center;
+}
+.ThemeRight {
+  /* position: relative; */
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+
+  margin-left: 10%;
+  /* margin-top:8%; */
+  width: 100%;
+  /* height:80%; */
+}
+
+.question-list::-webkit-scrollbar {
+  display: none;
+}
+
+.question-list {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.is-deleted {
+  display: none;
+}
