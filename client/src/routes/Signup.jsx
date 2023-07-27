@@ -55,7 +55,7 @@ function Signup(){
         const token =result.data.token
         if(token){
           localStorage.setItem('token',token)//토큰을 로컬 스토리지에 저장 -> 이 후 navigate하면 될듯
-          navigate('/post')
+          navigate('/post2')
         }
       } else if(result.status==400) {
         // 에러 처리
@@ -83,7 +83,7 @@ function Signup(){
       if (response.data.match) {
         alert(response.data.message);
         setIsVerified(true);
-        navigate('/signup2')
+        
       } else {
    
         alert(response.data.message);
@@ -147,10 +147,24 @@ function Signup(){
        
        <img src="/img/auth.svg" onClick={handleVerify} disabled={isVerified} style={{width:'130px',height:'90px',marginLeft:'72%'}}/>
     <br/>
+    {/* <div className='SignupInputContainer' style={{marginLeft:'3%'}}> */}
+    <div className='SignupId'>
+    <span className="ModalSubTitle">아이디</span>
+        <input type="userid"className="ModalId" value={userid} onChange={handleUserId} /> 
+        </div>
+        <div className='SignupPw'>
+       <span className="ModalSubTitle">비밀번호</span>
+       <input type="password" className="ModalId"value={pw} onChange={(e)=>{setPw(e.target.value);
+        }} />
+     </div>
+   
+       <img src="/img/signup.svg" onClick={handleSignup} style={{width:'130px',height:'90px', marginLeft:'72%',marginTop:'10%'}}/>
+       </div>
+   </div>
     </div>
-    </div>
+    // </div>
   
-</div>
+
   
   )
 }

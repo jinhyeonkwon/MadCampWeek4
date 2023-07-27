@@ -4,8 +4,8 @@ import Modal from './Modal'
 import { useNavigate } from 'react-router-dom';
 function Signup2(){
   const navigate=useNavigate()
-  const API_URL = "http://localhost:8000"
-//   const API_URL=process.env.API_URL;
+  // const API_URL = "http://localhost:8000"
+  const API_URL=process.env.API_URL;
   const [name,setName]=useState('')
    const [pw, setPw]=useState('')
    const [email, setEmail]=useState('')

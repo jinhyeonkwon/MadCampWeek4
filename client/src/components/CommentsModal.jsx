@@ -5,9 +5,9 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const port = process.env.EXPRESS_PORT;
-// const API_URL = process.env.API_URL;
+const API_URL = process.env.API_URL;
 const SECRET_KEY = process.env.SECRET_KEY;
-const API_URL = 'http://localhost:8000';
+// const API_URL = 'http://localhost:8000';
 
 function Modal({ isOpen, qId, hideFn }) {
   const access_token = localStorage.getItem('token');

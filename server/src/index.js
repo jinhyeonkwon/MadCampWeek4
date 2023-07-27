@@ -22,6 +22,7 @@ import postRouter from './routes/post.js';
 
 const app = express();
 const port = process.env.EXPRESS_PORT;
+const clientPort = process.env.REACT_PORT;
 
 // CORS 관련 부분
 app.use(cors())
@@ -34,6 +35,21 @@ app.use('/', homeRouter);
 // app.use('/comment', commentRouter);
 app.use('/post', postRouter);
 
+// -------- 서버용 ------------
+
+const whitelist = [`http://ssal.sparcs.org:${clientPort}`];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    console.log('[REQUEST-CORS] Request from origin: ', origin);
+    if (!origin || whitelist.indexOf(origin) !== -1) callback(null, true);
+    else callback(new Error('Not Allowed by CORS'));
+  },
+  credentials: true,
+	AllowCredentials: true, // 쿠키 사용하려면 필요!
+};
+
+// -------- 서버용 끝 ------------
 
 // app.get("/", (req, res) => {
 // 	res.send("Hello, World!");

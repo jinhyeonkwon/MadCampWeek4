@@ -5,7 +5,7 @@ import enroll from '/img/enroll.svg';
 import close from '/img/close.svg';
 function Modals({ setIsOpen, getFn, themeId }) {
   const [reload, setReload] = useState(false);
-  const API_URL = 'http://localhost:8000';
+  const API_URL = process.env.API_URL;
   const [inputText, setInputText] = useState('');
 
   const handleChange = (event) => {

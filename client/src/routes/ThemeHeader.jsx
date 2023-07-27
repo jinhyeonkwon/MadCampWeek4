@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'; // import useState and useEffect
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-const API_URL = 'http://localhost:8000';
+const API_URL = process.env.API_URL;
 import Modals from './Modals';
 import '../css/ThemeHeader.css';
 import '../App.css';

@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgresql://postgres:madweek4@ssal.sparcs.org:10297/week4db"
 }
 
 model User {
