@@ -465,9 +465,10 @@ function Theme() {
             <img
               src={`/img/imgg_${data}.svg`}
               style={{
+                
                 marginTop: '24%',
-                width: '50%',
-                height: '50%',
+                width: '70%',
+                height: '70%',
                 marginRight: 'auto',
                 marginLeft: 'auto',
               }}
@@ -481,7 +482,8 @@ function Theme() {
                 width: '200px',
                 marginRight: 'auto',
                 marginLeft: 'auto',
-                marginBottom: '30%',
+                marginBottom: '10%',
+                
               }}
             />
           </div>
@@ -503,10 +505,10 @@ function Theme() {
             <img
               src="/img/plus.svg"
               style={{
-                width: '150px',
-                height: '150px',
+                width: '80px',
+                height: '80px',
 
-                marginLeft: '75%',
+                marginLeft: '78%',
 
                 marginTop: '8%',
               }}

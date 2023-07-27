@@ -59,14 +59,16 @@ function Post2() {
         scrollbar={{ draggable: true }}
         onSwiper={(swiper) => console.log(swiper)}
         onSlideChange={() => console.log('slide change')}
+        style={{marginTop:'20%'}}
       >
+       
         <SwiperSlide>
           <img
             src={slide_image_1}
             alt="slide_img"
             onClick={handleNavThemeClick(1)}
             style={{
-              maxWidth: '100px',
+              maxWidth: '150px',
               maxHeight: '150px',
               objectFit: 'cover',
             }}
@@ -79,7 +81,7 @@ function Post2() {
             alt="slide_img"
             onClick={handleNavThemeClick(2)}
             style={{
-              maxWidth: '100px',
+              maxWidth: '150px',
               maxHeight: '150px',
               objectFit: 'cover',
             }}
@@ -91,7 +93,7 @@ function Post2() {
             alt="slide_img"
             onClick={handleNavThemeClick(3)}
             style={{
-              maxWidth: '100px',
+              maxWidth: '150px',
               maxHeight: '150px',
               objectFit: 'cover',
             }}
@@ -103,7 +105,7 @@ function Post2() {
             alt="slide_img"
             onClick={handleNavThemeClick(4)}
             style={{
-              maxWidth: '100px',
+              maxWidth: '150px',
               maxHeight: '150px',
               objectFit: 'cover',
             }}
@@ -115,7 +117,7 @@ function Post2() {
             alt="slide_img"
             onClick={handleNavThemeClick(5)}
             style={{
-              maxWidth: '100px',
+              maxWidth: '150px',
               maxHeight: '150px',
               objectFit: 'cover',
             }}
@@ -127,7 +129,7 @@ function Post2() {
             alt="slide_img"
             onClick={handleNavThemeClick(6)}
             style={{
-              maxWidth: '100px',
+              maxWidth: '150px',
               maxHeight: '150px',
               objectFit: 'cover',
             }}
@@ -138,7 +140,7 @@ function Post2() {
             src={slide_image_7}
             alt="slide_img"
             onClick={handleNavThemeClick(7)}
-            style={{ width: '100px', height: '150px' }}
+            style={{ width: '150px', height: '150px' }}
           />
         </SwiperSlide>
         <SwiperSlide>
@@ -146,9 +148,10 @@ function Post2() {
             src={slide_image_8}
             alt="slide_img"
             onClick={handleNavThemeClick(8)}
-            style={{ width: '100px', height: '150px' }}
+            style={{ width: '150px', height: '150px' }}
           />
         </SwiperSlide>
+       
 
         {/* <div className='slider-controler'>
                <div className='swiper-button-prev slider-arrow'>

@@ -260,8 +260,8 @@ width:300px;
 
 .PostImage1-clicked {
   transform: perspective(500px) rotateX(20deg) scale(3); /* 이미지 크기를 조절할 수 있습니다 */
-  transition: transform 0.5s ease-in-out; /* 0.5초 동안 애니메이션 효과가 지속됩니다 */
-}
+  /*transition: transform 0.5s ease-in-out; /* 0.5초 동안 애니메이션 효과가 지속됩니다 */
+/*}*/
 .SignupContainer {
   /* display: flex;
   align-items: center;

@@ -10,6 +10,7 @@ const router = express.Router();
 // 요청
 router.post('/', async (req, res) => {
   const { name, email, password,userid,userclass} = req.body; // 요청으로부터 사용자 데이터 받기
+  
  //비밀번호 해시
  const saltRounds = 10;
  const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -35,12 +36,15 @@ router.post('/', async (req, res) => {
            Class:parseInt(userclass),
         }
      }
+    
     );
+    console.log(user)
 
- 
+     
     // 토큰 생성
     const token = jwt.sign({ id:user.Id,name:user.Name,email:user.Email,class:user.Class}, process.env.SECRET_KEY, {
      expiresIn: '12h',})
+   
     console.log('회원가입 성공: ', { name, email, password });
     res.status(200).json({ token }); // 토큰 전달
   } catch (error) {

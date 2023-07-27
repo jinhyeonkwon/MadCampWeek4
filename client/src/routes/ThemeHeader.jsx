@@ -73,8 +73,8 @@ function ThemeHeader() {
           fontFamily: 'InkLipquid',
           color: 'white',
           position: 'fixed',
-          left: '50%',
-          transform: "translate('-50%', 0)",
+          left: '45%',
+          // transform: "translate('-50%', 0)",
         }}
       >
         {userClass}분반 밤하늘

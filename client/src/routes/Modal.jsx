@@ -36,10 +36,12 @@ function Modal(){
           console.error('로그인 중 오류가 발생하였습니다:', error);
         }
       };
-
+const NavSignup=()=>{
+  navigate('/signup')
+}
     return(
         <div className="ModalContainer">
-            <span className="ModalTitle">서비스 이름</span>
+            <span className="ModalTitle">별의 회고록</span>
             <div className='ModalInputContainer'>
                 <div className='ModalID'>
                     <span className="ModalSubTitle">아이디</span>
@@ -52,7 +54,7 @@ function Modal(){
             </div>
             <div className='LoginButtonContainer'>
                 <img src="/img/Login.svg" className="ModalLogin" onClick={handleLogin} />
-                <img src="/img/Signup.svg" className="ModalSignup" />
+                <img src="/img/Signup.svg" className="ModalSignup" onClick={NavSignup} />
             </div>
         </div>
     )

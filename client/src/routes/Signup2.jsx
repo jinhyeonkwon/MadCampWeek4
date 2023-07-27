@@ -50,6 +50,7 @@ function Signup2(){
         userclass:userclass
 
       });
+    
       if (result.status === 200) {
         // 회원가입 성공 처리
         const token =result.data.token
@@ -125,8 +126,8 @@ function Signup2(){
     <div className="column">
         <img className="MainPage"  src="/img/MainPage.png"></img>
     <div className="SignupContainer">
-    <span className="SignupTitle" style={{fontSize:'3rem',marginLeft:'10%'}}>서비스 이름</span>
-    <div className='SignupInputContainer' style={{marginLeft:'6%'}}>
+    <span className="SignupTitle" style={{fontSize:'3rem',marginLeft:'6%'}}>서비스 이름</span>
+    <div className='SignupInputContainer' style={{marginLeft:'3%'}}>
     <div className='SignupId'>
     <span className="ModalSubTitle">아이디</span>
         <input type="userid"className="ModalId" value={userid} onChange={handleUserId} /> 
