@@ -36,6 +36,13 @@ body,
   font-style: normal;
 }
 
+html, body, #root, .App {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
 .ink {
   font-family: InkLipquid;
 }
@@ -122,6 +129,7 @@ body,
   left: 40%;
   z-index: 2;
 }
+
 .ModalContainer {
   /* display: flex;
   align-items: center;
@@ -200,7 +208,6 @@ width:300px;
   border: none;
   border-bottom: 3px solid white;
 
-} */
 .PostContainer {
   position: relative;
   width: 100%;
