@@ -68,8 +68,17 @@ width: 270px;
   transform: scale(1.3);
 }
 
-.swiper-button-prev,
-.swiper-button-next {
-  opacity: 1 !important; /* 기본 투명도 속성 무시 */
-  z-index: 10 !important; /* 기본 z-index 속성 무시 */
+
+.swiper-button-next,
+.swiper-button-prev {
+  top: 0;
+  transform: translateY(0);
+  background: rgba(0, 0, 0, 0.5); /* 배경색 변경 (필요에 따라 변경) */
+  width: 100%; /* 너비 변경 (필요에 따라 변경) */
+  height: 50px; /* 높이 변경 (필요에 따라 변경) */
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 20px; /* 화살표 크기 변경 (필요에 따라 변경) */
 }

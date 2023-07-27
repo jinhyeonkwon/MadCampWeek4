@@ -48,21 +48,22 @@ function Modals({ setIsOpen,getFn, themeId }) {
         <div className="modal-overlay">
           <div className="modal-background create-question-modal-background"></div>
           <div className="modal-card create-question-modal-card is-active question-modal" style={{backgroundColor: 'rgba(0, 0, 0, 0.2)'}}>
-            <h3>질문을 등록해보세요.</h3>
+            <h3 style={{fontFamily:'Myeongjo30', color:'white',fontSize:'2rem',padding:'20px'}}>질문을 등록해보세요.</h3>
       
               <textarea
                 type="text"
                 placeholder="텍스트를 입력하세요."
                 value={inputText}
                 onChange={handleChange}
+                style={{fontFamily:'Myeongjo30',color:'white',padding:'15px', backgroundColor:"rgba(0,0,0,0.8)"}}
                 
                 className="input-question"
               />
-              <div>
-                <button  onClick={createQuestion}>등록</button>
-                <button  onClick={closeModal}>닫기</button>
-                {/* <img src={enroll} onClick={createQuestion}>등록</img>
-                <img src={close} onClick={closeModal}>닫기</img> */}
+              <div style={{padding:'20px', marginLeft:'59%'}}>
+                {/* <button  onClick={createQuestion}>등록</button>
+                <button  onClick={closeModal}>닫기</button> */}
+                <img src={enroll} onClick={createQuestion}></img>
+                <img src={close} onClick={closeModal}></img>
                 
               </div>
        

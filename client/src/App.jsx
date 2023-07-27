@@ -8,6 +8,7 @@ import Post2 from './routes/Post2'
 import Signup from './routes/Signup'
 import Theme from './routes/Theme'
 import Modals from './routes/Modals'
+import Signup2 from './routes/Signup2'
 
 import { AnimatePresence } from 'framer-motion';
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/post2" element={<Post2 />}></Route>
         <Route path="/theme" element={<Theme />}></Route>
         <Route path="/modals" element={<Modals />}></Route>
+        <Route path="/signup2" element={<Signup2 />}></Route>
        
       </Routes>
     </Router>

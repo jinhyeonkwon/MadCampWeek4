@@ -161,11 +161,11 @@ const hideQuestionModal = () => {
             {/* <img src="/img/plus.png" style={{ display: 'block', marginLeft: 'auto', width:'30px', height:'30px',position: 'absolute', 
                 right: 0,}} onClick={showModal}/> */}
             <img src="/img/plus.svg" style={{width:'40px', height:'40px',marginRight:'20%',marginTop:'10%'}}onClick={showModal}/> 
-            <div className="questions-list" style={{position:'relative',display:'flex',flexDirection:'column', height:'auto', overflowY: 'scroll',marginTop:'10%',marginRight:'30%' }}>
+            {/* <div className="questions-list" style={{position:'relative',display:'flex',flexDirection:'column', height:'auto', overflowY: 'scroll',marginTop:'10%',marginRight:'30%' }}> */}
           
             <div className="question-list" style={{display:'flex',flexDirection:'column', height: '300px', overflowY: 'scroll',marginTop:'-20%'}}>
               {questionList}
-            </div>
+            {/* </div> */}
             </div>
           </div> 
         </div>

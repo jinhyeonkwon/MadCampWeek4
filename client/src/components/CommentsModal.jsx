@@ -191,7 +191,7 @@ function Modal({ isOpen, qId, hideFn }){
 
   cardList = cList.map((comment) => (
     <div className="card comment-card">
-      <div className="card-content">
+      <div className="card-content" style={{height:'130px'}}>
         <div style={{marginLeft: '0px', marginTop: '10px', marginBottom: '10px', fontSize: '2rem'}}>
         {`${comment.author.Name} `}  
         </div>
@@ -211,7 +211,7 @@ function Modal({ isOpen, qId, hideFn }){
       
       <div className={`modal${modalState ? ' is-active' : ""}`}>
             <div className="modal-background"></div>
-            <div className="modal-card">
+            <div className="modal-card" style={{marginTop:'-4%'}} >
               {/* 댓글 띄우는 부분 */}
               <header className='modal-card-head ink large-text' style={{position: 'relative'}}>
                 <div>
@@ -227,7 +227,7 @@ function Modal({ isOpen, qId, hideFn }){
                 {/* 추가 부분 */}
                 <div className="card" style={{marginTop:'5px', marginBottom:'5px'}}>
                   <span style={{marginBottom: '10px', width: '100%'}}>
-                    <textarea className='myeongjo20' rows='11' style={{backgroundColor: 'rgba(0, 0, 0, 0.8)', padding: '5px'}} required aria-required="true" type='text' placeholder='우리 반 사람들과 생각을 나눠보아요!' value={newContents} onChange={(e) => setNewContents(e.target.value)}></textarea>
+                    <textarea className='myeongjo20' rows='11' style={{backgroundColor: 'rgba(0, 0, 0, 0.8)', padding: '20px'}} required aria-required="true" type='text' placeholder='우리 반 사람들과 생각을 나눠보아요!' value={newContents} onChange={(e) => setNewContents(e.target.value)}></textarea>
                     <div style={{float: 'right'}}>
                       <img src="/img/CreateComment.svg" type='button' style={{marginTop: '10px', float:'right'}} onClick={(e) => createComment(e, qId)} />
                     </div>

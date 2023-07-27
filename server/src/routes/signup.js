@@ -54,7 +54,7 @@ router.post('/', async (req, res) => {
 
 router.post('/verify', async (req, res) => {
   try {
-    console.log(req.body);
+    console.log("렉바디"+req.body);
     const email = req.body.email;
     const name = req.body.name;
     const userClass = req.body.userClass;

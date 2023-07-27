@@ -36,7 +36,9 @@ function Modal(){
           console.error('로그인 중 오류가 발생하였습니다:', error);
         }
       };
-
+const NavSignup=()=>{
+  navigate('/signup')
+}
     return(
         <div className="ModalContainer">
             <span className="ModalTitle">서비스 이름</span>
@@ -50,9 +52,9 @@ function Modal(){
                     <input type="password" className="ModalPw"value={pw} onChange={(e)=>{setPw(e.target.value);}}/>
                 </div>
             </div>
-            <div className='LoginButtonContainer'>
+            <div className='LoginButtonContainer' >
                 <img src="/img/Login.svg" className="ModalLogin" onClick={handleLogin} />
-                <img src="/img/Signup.svg" className="ModalSignup" />
+                <img src="/img/Signup.svg" className="ModalSignup" onClick={NavSignup} />
             </div>
         </div>
     )
