@@ -2,10 +2,10 @@ import {React,useEffect,useState} from 'react'
 import axios from 'axios'
 import Modal from './Modal'
 import { useNavigate } from 'react-router-dom';
-function Signup(){
+function Signup2(){
   const navigate=useNavigate()
-  // const API_URL=process.env.API_URL;
   const API_URL = "http://localhost:8000"
+//   const API_URL=process.env.API_URL;
   const [name,setName]=useState('')
    const [pw, setPw]=useState('')
    const [email, setEmail]=useState('')
@@ -55,7 +55,7 @@ function Signup(){
         const token =result.data.token
         if(token){
           localStorage.setItem('token',token)//토큰을 로컬 스토리지에 저장 -> 이 후 navigate하면 될듯
-          navigate('/post')
+          navigate('/post2')
         }
       } else if(result.status==400) {
         // 에러 처리
@@ -83,11 +83,9 @@ function Signup(){
       if (response.data.match) {
         alert(response.data.message);
         setIsVerified(true);
-        navigate('/signup2')
       } else {
    
         alert(response.data.message);
-       
       }
     } catch (error) {
       console.error('Error:', error);
@@ -127,34 +125,28 @@ function Signup(){
     <div className="column">
         <img className="MainPage"  src="/img/MainPage.png"></img>
     <div className="SignupContainer">
-            <span className="SignupTitle" style={{fontSize:'3rem',marginLeft:'10%'}}>서비스 이름</span>
-            <div className='SignupInputContainer' style={{marginLeft:'6%'}}>
-             <div className="SignupEmail">
-            <span className="ModalSubTitle">이메일</span>
-       <input type="email" className="ModalId"value={email} onChange={(e)=>{setEmail(e.target.value);
-        emailCheck(e.target.value)}} disabled={isVerified}/>
-       </div>
-       <div className='SignupName'>
-       <span className="ModalSubTitle">이름</span>
-       <input type="name" className="ModalId"value={name} onChange={handleName} disabled={isVerified}/>
-       </div>
-       <div className='SignupClass'>
-       <span className="ModalSubTitle">클래스</span>
-       <input type="class" className="ModalId"value={userclass} onChange={(e)=>{setUserClass(e.target.value);
-        }} disabled={isVerified}/>
+    <span className="SignupTitle" style={{fontSize:'3rem',marginLeft:'10%'}}>서비스 이름</span>
+    <div className='SignupInputContainer' style={{marginLeft:'6%'}}>
+    <div className='SignupId'>
+    <span className="ModalSubTitle">아이디</span>
+        <input type="userid"className="ModalId" value={userid} onChange={handleUserId} /> 
         </div>
-
-       
-       <img src="/img/auth.svg" onClick={handleVerify} disabled={isVerified} style={{width:'130px',height:'90px',marginLeft:'72%'}}/>
-    <br/>
-    </div>
-    </div>
+        <div className='SignupPw'>
+       <span className="ModalSubTitle">비밀번호</span>
+       <input type="password" className="ModalId"value={pw} onChange={(e)=>{setPw(e.target.value);
+        }} />
+     </div>
+   
+       <img src="/img/signup.svg" onClick={handleSignup} style={{width:'130px',height:'90px', marginLeft:'72%',marginTop:'10%'}}/>
+       </div>
+   </div>
+ 
+   </div>
   
-</div>
   
   )
 }
 
 
 
-export default Signup
+export default Signup2

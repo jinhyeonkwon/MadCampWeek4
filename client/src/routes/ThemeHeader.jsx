@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 const API_URL = 'http://localhost:8000';
 import Modals from './Modals';
+import '../css/ThemeHeader.css';
+import '../App.css';
 
 function ThemeHeader() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [userClass, setUserClass] = useState('');
   const [userName, setUserName] = useState('');
   const access_token = localStorage.getItem('token');
@@ -53,22 +55,56 @@ function ThemeHeader() {
   //     </span>
   //   </header>
   // );
-  const logout=()=>{
-    localStorage.removeItem('token')
-    navigate('/')
-  }
+  const logout = () => {
+    localStorage.removeItem('token');
+    navigate('/');
+  };
   return (
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <span className="ThemeTitle">
+    <nav
+      class="navbar"
+      role="navigation"
+      aria-label="main navigation"
+      style={{ backgroundColor: 'transparent' }}
+    >
+      <span
+        className="ThemeTitle"
+        style={{
+          fontSize: '6rem',
+          fontFamily: 'InkLipquid',
+          color: 'white',
+          position: 'fixed',
+          left: '50%',
+          transform: "translate('-50%', 0)",
+        }}
+      >
         {userClass}분반 밤하늘
       </span>
       <div className="navbar-menu is-active">
         <div className="navbar-end">
           <div className="navbar-item">
-            <div className="userInfo">
-              <div className="userProfile">
-                <img className="profileIcon" src="./img/profile.svg" alt="Profile" />
-                <div className="ThemeName">
+            <div
+              className="userInfo"
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                position: 'relative',
+              }}
+            >
+              <div className="userProfile" style={{ display: 'flex' }}>
+                <img
+                  className="profileIcon"
+                  src="./img/profile.svg"
+                  alt="Profile"
+                  style={{ marginRight: '10px' }}
+                />
+                <div
+                  className="ThemeName"
+                  style={{
+                    color: 'white',
+                    fontFamily: 'Myeongjo30',
+                    fontSize: '2rem',
+                  }}
+                >
                   {userClass}분반 {userName}
                 </div>
               </div>
@@ -78,7 +114,12 @@ function ThemeHeader() {
                   src="/img/Logout.svg"
                   alt="Logout"
                   onClick={logout}
-                  style={{scale: '10', position: 'relative', top: '10px'}}
+                  style={{
+                    scale: '10',
+                    position: 'relative',
+                    marginTop: '15%',
+                    marginLeft: '50%',
+                  }}
                 />
               </div>
             </div>
@@ -87,6 +128,7 @@ function ThemeHeader() {
       </div>
     </nav>
   );
+  return <div className="ThemeHeader"></div>;
 }
 
 export default ThemeHeader;
