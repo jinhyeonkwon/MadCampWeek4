@@ -34,10 +34,11 @@ const NavTheme = (id) => {
 
 return(
 
-    <div className="container">
-    {/* <img className="MainPage" src="/img/MainPage2.jpg"  alt="Background" /> */}
-    
+    <div className="Postcontainer">
+    {/* <img className="MainPage" src="/img/MainPage2.jpg"  alt="Background" /> 
+     */}
         <Swiper
+          
 //   effect="coverflow"
 //   grabCursor={true}
 //   centeredSlides={true}
@@ -51,10 +52,12 @@ return(
 //   }}
 //   pagination={{ clickable: true }}
 //   navigation={true}
-  className="swiper_container"
+  className="swiper_container full-width-container"
   modules={[Navigation, Pagination, Scrollbar, A11y]}
-  spaceBetween={100}
-  slidesPerView="auto"
+  spaceBetween={20}
+  slidesPerView="8"
+  centeredSlides={true}
+  freeMode
   navigation
   pagination={{ clickable: true }}
   scrollbar={{ draggable: true }}
@@ -62,44 +65,44 @@ return(
   onSlideChange={() => console.log('slide change')}
   
 >
-    <div className='Slide'>
        
             <SwiperSlide>
-                <img src={slide_image_1} alt="slide_img" onClick={handleNavThemeClick(1)} style={{width:"270px",height:"320px"}} />
+                <img src={slide_image_1} alt="slide_img" onClick={handleNavThemeClick(1)} style={{maxWidth:"100px",maxHeight:"150px", objectFit: "cover"}} />
             </SwiperSlide>
 
             <SwiperSlide>
-                <img src={slide_image_2} alt="slide_img" onClick={handleNavThemeClick(2)} style={{width:"270px",height:"320px"}} />
+                <img src={slide_image_2} alt="slide_img" onClick={handleNavThemeClick(2)} style={{maxWidth:"100px",maxHeight:"150px", objectFit: "cover"}} />
             </SwiperSlide>
             <SwiperSlide>
-                <img src={slide_image_3} alt="slide_img" onClick={handleNavThemeClick(3)} style={{width:"270px",height:"320px"}} />
+                <img src={slide_image_3} alt="slide_img" onClick={handleNavThemeClick(3)} style={{maxWidth:"100px",maxHeight:"150px", objectFit: "cover"}} />
             </SwiperSlide>
             <SwiperSlide>
-                <img src={slide_image_4} alt="slide_img" onClick={handleNavThemeClick(4)} style={{width:"270px",height:"320px"}} />
+                <img src={slide_image_4} alt="slide_img" onClick={handleNavThemeClick(4)} style={{maxWidth:"100px",maxHeight:"150px", objectFit: "cover"}} />
             </SwiperSlide>
             <SwiperSlide>
-                <img src={slide_image_5} alt="slide_img" onClick={handleNavThemeClick(5)} style={{width:"270px",height:"320px"}} />
+                <img src={slide_image_5} alt="slide_img" onClick={handleNavThemeClick(5)} style={{maxWidth:"100px",maxHeight:"150px", objectFit: "cover"}} />
             </SwiperSlide>
             <SwiperSlide>
-                <img src={slide_image_6} alt="slide_img" onClick={handleNavThemeClick(6)} style={{width:"270px",height:"320px"}} />
+                <img src={slide_image_6} alt="slide_img" onClick={handleNavThemeClick(6)} style={{maxWidth:"100px",maxHeight:"150px", objectFit: "cover"}} />
             </SwiperSlide>
             <SwiperSlide>
-                <img src={slide_image_7} alt="slide_img" onClick={handleNavThemeClick(7)} style={{width:"270px",height:"320px"}}/>
+                <img src={slide_image_7} alt="slide_img" onClick={handleNavThemeClick(7)} style={{width:"100px",height:"150px"}}/>
             </SwiperSlide>
             <SwiperSlide>
-                <img src={slide_image_8} alt="slide_img" onClick={handleNavThemeClick(8)} style={{width:"270px",height:"320px"}}/>
+                <img src={slide_image_8} alt="slide_img" onClick={handleNavThemeClick(8)} style={{width:"100px",height:"150px"}}/>
             </SwiperSlide>
-</div>
-           <div className='slider-controler' style={{marginTop:'-40%'}}>
+
+           {/* <div className='slider-controler'>
                <div className='swiper-button-prev slider-arrow'>
-                   {/* <ion-icon name="arrow-back-outline"></ion-icon> */}
+                   <ion-icon name="arrow-back-outline"></ion-icon> 
                </div>
                <div className='swiper-button-next slider-arrow'>
-                   {/* <ion-icon name="arrow-forward-outline"></ion-icon> */}
+                <ion-icon name="arrow-forward-outline"></ion-icon> 
                </div>
-               <div className="swiper-pagination"></div>
-               
-</div>
+               <div className="swiper-pagination"></div> */}
+{/*                
+</div> */}
+
         </Swiper>
 
     </div>

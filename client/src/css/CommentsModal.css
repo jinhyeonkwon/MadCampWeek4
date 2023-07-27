@@ -1,8 +1,5 @@
 .modal-background {
   opacity: 0.5;
-  position: fixed;
-  margin: auto; 
-  width: 100%;
 }
 
 .modal-card-head {
@@ -12,20 +9,7 @@
   border-radius: 0;
 }
 
-.modal {
-  position: fixed;
-  margin: auto;
-  min-width: 40vw;
-  max-width: 110vw;
-}
-
-.card-list {
-  display: flex;
-  flex-direction: column;
-}
-
 .modal-card {
-  background-color: transparent;
   min-width: 40vw;
   max-width: 110vw;
 }
@@ -42,8 +26,9 @@
   color: #ffffff;
 }
 
-.ink {
-  font-family: 'InkLipquid';
+.modal-card-header {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #ffffff;
 }
 
 .card-footer {

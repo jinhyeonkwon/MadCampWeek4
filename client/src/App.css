@@ -55,7 +55,18 @@ body,
 .large-text {
   font-size: x-large;
 }
-
+.BgImage {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(./img/MainPage2.jpg);
+  
+  background-size: contain; /* 변경: cover에서 contain으로 */
+  background-position: center center; /* 가운데 정렬 */
+  background-repeat: no-repeat; /* 배경 이미지 반복 없음 */
+ 
+  z-index: 1;
+}
 .column {
   display: flex;
   flex-direction: column;
@@ -63,17 +74,23 @@ body,
   justify-content: center;
 }
 
-.MainPage {
+/* MainPage {
   width: 100vw;
   height: 100vh;
-  background-size: cover;
-}
+  top: 0;
+  left: 0;
+  background-image: url(./img/MainPage2.jpg);
+  background-size:cover; /* 변경: contain에서 auto로 */
+  /* background-position: 0% 30%; /* 배경 이미지의 x, y 좌표를 원하는 위치로 설정 */
+  /* background-repeat: no-repeat;
+} */
+
 /*짱입니다!!!!!*/
 .MainBox {
-  border: 2px solid white;
+  /*border: 2px solid white;*/
   padding: 20px;
-  width: 500px;
-  height: 500px;
+  /*width: 500px;
+  height: 500px;*/
   position: absolute;
   top: 50%;
   left: 50%;
@@ -151,7 +168,7 @@ color: #FFFFFF;
 
 
 
-.LoginButtonContainer {
+/* .LoginButtonContainer {
   display:flex;
   justify-content: space-between;
   margin-top: 20px;
@@ -160,8 +177,8 @@ color: #FFFFFF;
   margin-top: 12%;
   position: absolute;
   top:25%;
-  left:15%;
-  width: 400px; 
+  left:30%;
+  width: 1000px; 
 }
 .ModalID,.ModalPW{
   display: flex;
@@ -242,16 +259,6 @@ width:300px;
   transform: perspective(500px) rotateX(20deg) scale(3.0);/* 이미지 크기를 조절할 수 있습니다 */
   transition: transform 0.5s ease-in-out; /* 0.5초 동안 애니메이션 효과가 지속됩니다 */
 }
-.ModalLogin{
-  margin-top: 72%;
-  margin-left: 10%;
-}
-.ModalSignup{
-  margin-top:77%;
-
-  margin-right: 14%;
-  
-}
 .SignupContainer {
   /* display: flex;
   align-items: center;
@@ -299,12 +306,7 @@ color: #FFFFFF;
   margin-top: 4%;
 }
 
-.container{
-  background-image: url(./img/MainPage2.jpg);
-  width:100vw;
-  height:100vh;
-  background-size: cover;
-}
+
 /* header{
 
   display: flex;

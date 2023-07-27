@@ -191,15 +191,13 @@ function Modal({ isOpen, qId, hideFn }){
 
   cardList = cList.map((comment) => (
     <div className="card comment-card">
-      <header className="card-header">
-        <div style={{marginLeft: '20px', marginTop: '10px'}}>
+      <div className="card-content">
+        <div style={{marginLeft: '0px', marginTop: '10px', marginBottom: '10px', fontSize: '2rem'}}>
         {`${comment.author.Name} `}  
         </div>
-      </header>
-      <div className="card-content">
-        <div style={{marginBottom: '3px', overflowWrap: 'normal'}}>{comment.Contents}</div>
-        <img src="/img/Delete.svg" type='button' style={(userId === comment.author.Id) ? {float: 'right', marginRight: '0px', marginTop: '10px'} : {display:'none'}} onClick={(e) => deleteComment(e, comment.Id)} />
-        <div style={{marginTop: '10px'}}>{`작성 시각 : ${new Date(comment.CreatedAt).toLocaleString()}`}</div>
+        <div style={{marginBottom: '3px',fontSize:"1.5rem", overflowWrap: 'normal'}}>{comment.Contents}</div>
+        <img src="/img/Delete.svg" type='button' style={(userId === comment.author.Id) ? {display: 'absolute', float: 'right', marginRight: '0px', marginTop: '10px', marginBottom: '20px',} : {display:'none'}} onClick={(e) => deleteComment(e, comment.Id)} />
+        <div style={{marginTop: '10px', fontSize:"1.2rem"}}>{`작성 시각 : ${new Date(comment.CreatedAt).toLocaleString()}`}</div>
       </div>
     </div>
   ));
@@ -212,36 +210,36 @@ function Modal({ isOpen, qId, hideFn }){
     return(
       
       <div className={`modal${modalState ? ' is-active' : ""}`}>
-      <div className="modal-background"></div>
-      <div className="modal-card">
-        {/* 댓글 띄우는 부분 */}
-        <header className='modal-card-head ink large-text'>
-          <div>
-            <div className='question-name'>{question.Contents}</div>
-            <div className='quest'>
-              {question.author ? `질문 작성자 : ${question.author.Name}` : '기본 질문'}
-              <img src='/img/CloseButton.svg' class="delete" onClick={closeModal} style={{float: 'right', scale: '2', marginRight: '10px'}}></img>
+            <div className="modal-background"></div>
+            <div className="modal-card">
+              {/* 댓글 띄우는 부분 */}
+              <header className='modal-card-head ink large-text' style={{position: 'relative'}}>
+                <div>
+                  <div className='question-name'>{question.Contents}</div>
+                  <div className='quest' >
+                    {question.author ? `질문 작성자 : ${question.author.Name}` : '기본 질문'}
+                    <img src='/img/CloseButton.svg' class="delete" onClick={(e) => SetModalState(false)} style={{position: 'absolute', right: 0, top: 0, float: 'right',  width: '40px', height: '40px'}}></img>
+                  </div>
+                
+                </div>
+              </header>
+              <section className="modal-card-body myeongjo20">
+                {/* 추가 부분 */}
+                <div className="card" style={{marginTop:'5px', marginBottom:'5px'}}>
+                  <span style={{marginBottom: '10px', width: '100%'}}>
+                    <textarea className='myeongjo20' rows='11' style={{backgroundColor: 'rgba(0, 0, 0, 0.8)', padding: '5px'}} required aria-required="true" type='text' placeholder='우리 반 사람들과 생각을 나눠보아요!' value={newContents} onChange={(e) => setNewContents(e.target.value)}></textarea>
+                    <div style={{float: 'right'}}>
+                      <img src="/img/CreateComment.svg" type='button' style={{marginTop: '10px', float:'right'}} onClick={(e) => createComment(e, qId)} />
+                    </div>
+                  </span>
+                  {/* img로 해서 onClick 달자 */}
+                </div>
+                <div className='card-list' style={{marginTop: '50px'}}>
+                  {cardList}
+                </div>
+              </section>
             </div>
-          
-          </div>
-        </header>
-        <section className="modal-card-body myeongjo20">
-          {/* 추가 부분 */}
-          <div className="card" style={{marginTop:'5px', marginBottom:'5px'}}>
-            <span style={{marginBottom: '10px', width: '100%'}}>
-              <textarea className='myeongjo20' rows='11' style={{backgroundColor: 'rgba(0, 0, 0, 0.8)', padding: '5px'}} required aria-required="true" type='text' placeholder='우리 반 사람들과 생각을 나눠보아요!' value={newContents} onChange={(e) => setNewContents(e.target.value)}></textarea>
-              <div style={{float: 'right'}}>
-                <img src="/img/CreateComment.svg" type='button' style={{marginTop: '10px', float:'right'}} onClick={(e) => createComment(e, qId)} />
-              </div>
-            </span>
-            {/* img로 해서 onClick 달자 */}
-          </div>
-          <div className='card-list' style={{marginTop: '50px'}}>
-            {cardList}
-          </div>
-        </section>
-      </div>
-  </div>
+        </div>
     )
 }
 export default Modal

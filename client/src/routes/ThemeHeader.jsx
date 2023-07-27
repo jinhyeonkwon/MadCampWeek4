@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'; // import useState and useEffect
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 const API_URL = 'http://localhost:8000';
 import Modals from './Modals';
 
 function ThemeHeader() {
+  const navigate = useNavigate()
   const [userClass, setUserClass] = useState('');
   const [userName, setUserName] = useState('');
   const access_token = localStorage.getItem('token');
@@ -37,51 +39,54 @@ function ThemeHeader() {
     }
   };
 
-  return (
-    <header className="themeHeader">
-      <span className="ThemeTitle">{userClass}분반 밤하늘</span>
-      <span className="userInfo">
-        <div className="userProfile">
-          <img src="./img/profile.svg" alt="Profile" />
-          <span className="ThemeName">
-            {userClass}분반 {userName}
-          </span>
-        </div>
-        <img className="logoutBtn" src="./img/Logout.svg" alt="Logout" />
-      </span>
-    </header>
-  );
-
   // return (
-  //   <nav class="navbar" role="navigation" aria-label="main navigation">
-  //     <div className="navbar-start">
-  //       <span className="ThemeTitle navbar-item" style={{ color: '#fff' }}>
-  //         {userClass}분반 밤하늘
-  //       </span>
-  //     </div>
-  //     <div className="navbar-menu is-active">
-  //       <div className="navbar-end">
-  //         <div className="navbar-item">
-  //           <div className="userInfo">
-  //             <div className="userProfile">
-  //               <img src="./img/profile.svg" alt="Profile" />
-  //               <div className="ThemeName">
-  //                 {userClass}분반 {userName}
-  //               </div>
-  //             </div>
-  //             <span>
-  //               <img
-  //                 className="logoutBtn navbar-item"
-  //                 src="/img/Logout.svg"
-  //                 alt="Logout"
-  //               />
-  //             </span>
-  //           </div>
-  //         </div>
+  //   <header className="themeHeader">
+  //     <span className="ThemeTitle">{userClass}분반 밤하늘</span>
+  //     <span className="userInfo">
+  //       <div className="userProfile">
+  //         <img src="./img/profile.svg" alt="Profile" />
+  //         <span className="ThemeName">
+  //           {userClass}분반 {userName}
+  //         </span>
   //       </div>
-  //     </div>
-  //   </nav>
+  //       <img className="logoutBtn" src="./img/Logout.svg" alt="Logout" />
+  //     </span>
+  //   </header>
   // );
+  const logout=()=>{
+    localStorage.removeItem('token')
+    navigate('/')
+  }
+  return (
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <span className="ThemeTitle">
+        {userClass}분반 밤하늘
+      </span>
+      <div className="navbar-menu is-active">
+        <div className="navbar-end">
+          <div className="navbar-item">
+            <div className="userInfo">
+              <div className="userProfile">
+                <img className="profileIcon" src="./img/profile.svg" alt="Profile" />
+                <div className="ThemeName">
+                  {userClass}분반 {userName}
+                </div>
+              </div>
+              <div className="logoutArea">
+                <img
+                  className="logoutBtn navbar-item"
+                  src="/img/Logout.svg"
+                  alt="Logout"
+                  onClick={logout}
+                  style={{scale: '10', position: 'relative', top: '10px'}}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
 }
 
 export default ThemeHeader;

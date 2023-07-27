@@ -1,0 +1,127 @@
+.ModalContainer {
+  display: flex;
+  flex-direction: column;
+  border: 4px solid #FFFFFF;
+  padding: 20px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  background-color: transparent;
+  position: absolute;
+  /*max-width: 90vw;
+  min-width: 25vw;
+  min-height: 20vh;
+  max-height: 90vh;*/
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  overflow: hidden;
+  height: 55%;
+  width: 45%;
+}
+
+.ModalTitle {
+  margin: 0 auto;
+  font-family: 'InkLipquid';
+  display: fixed;
+  left: 20%;
+  right: 20%;
+  font-style: normal;
+  font-weight: 200;
+  font-size: 50px;
+  line-height: 68px;
+  /* identical to box height */
+  text-align: center;
+
+  color: #FFFFFF;
+
+}
+
+.ModalLogin{
+  /* margin-top: 72%; */
+  /* margin-left: 20%; */
+}
+.ModalSignup{
+  /* margin-top:72%; */
+  /* margin-right: 20%; */
+  
+}
+
+.ModalSubTitle {
+  display: flex;
+  margin-left: 0px;
+  width: 6em;
+  color: #fff;
+  font-family:'Myeongjo30';
+  font-size: large;
+  white-space: nowrap;
+}
+
+.LoginButtonContainer {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 30px;
+  max-width: 95%;
+}
+.ModalInputContainer{
+  margin:auto;
+  max-width: 95%;
+  margin-top: 15%;
+  margin-left: 15%;
+  left: 5%;
+  right: 5%;
+}
+.ModalID, .ModalPW{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 5%;
+}
+
+.ModalPW input {
+  width: 50%;
+}
+.ModalID input {
+  width: 50%;
+}
+
+.ModalId{
+  margin-left: 3%;
+  background-color: transparent;
+  border: none;
+  border-bottom: 3px solid white;
+  color: #fff;
+  font-family: 'Myeongjo20';
+  font-size: x-large
+
+}
+
+.ModalPw{
+
+  background-color: transparent;
+  border: none;
+  border-bottom: 3px solid white;
+  color: #fff;
+  font-family: 'Myeongjo20';
+  font-size: x-large
+}
+
+.LoginButtonContainer {
+  float: center;
+  position: relative;
+  margin: auto;
+}
+
+* {
+  overflow: hidden;
+}
+.MainPage {
+    width: 100vw;
+    height: 100vh;
+    background-position: 0% 30%; 
+
+    background-size: contain;
+    background-image: url(./img/MainPage2.jpg);
+  
+  }

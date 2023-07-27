@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Modals.css'
-import '../css/CreateQuestionModal.css'
 import enroll from "/img/enroll.svg"
 import close from "/img/close.svg"
 function Modals({ setIsOpen,getFn, themeId }) {
@@ -39,7 +38,7 @@ function Modals({ setIsOpen,getFn, themeId }) {
       console.error('Error fetching info:', error);
     }
   };
-
+ 
   useEffect(() => {
     getFn();
 
@@ -47,8 +46,8 @@ function Modals({ setIsOpen,getFn, themeId }) {
   return (
 
         <div className="modal-overlay">
-          <div className="modal-background"></div>
-          <div className="modal-card is-active question-modal" style={{backgroundColor: 'rgba(0, 0, 0, 0.2)'}}>
+          <div className="modal-background create-question-modal-background"></div>
+          <div className="modal-card create-question-modal-card is-active question-modal" style={{backgroundColor: 'rgba(0, 0, 0, 0.2)'}}>
             <h3>질문을 등록해보세요.</h3>
       
               <textarea

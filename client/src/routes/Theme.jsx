@@ -94,6 +94,7 @@ const handleDelete=async(event,id)=>{
 
 }
 const NavPost=()=>{
+  console.log('성공')
   navigate("/post2")
 }
 
@@ -113,10 +114,9 @@ const hideQuestionModal = () => {
       border: '1.8px solid #FFFFFF',
       boxSizing: 'border-box',
       padding: '16px',
-      
       backgroundColor:'transparent',
-      width:"60rem",
-      height:'auto',
+    width:'60rem',
+      height:'20rem',
       color:'white',
       fontSize:'1.5rem',
       fontFamily:'Myeongjo30',
@@ -146,13 +146,13 @@ const hideQuestionModal = () => {
         <div className="BgImage" />
         {isOpen && <Modals setIsOpen={setIsOpen} getFn={getThatQuestion} themeId={data}/>}
         <Header />
-        <div className="ThemeContent2 columns"> 
+        <div className="ThemeContent2 columns" > 
             <div className='ThemeLeft2 column is-one-third-desktop is-one-third-widescreen is-one-third-fullhd'>
             {/* <section className='ThemeLeft' style={{flexGrow: '3'}} > */}
                 {/* <img src={image1}style={{width:'266px',height:'317px'}}/> */}
-                <img src={`/img/imgg_${data}.svg`}></img> {/*----- 별자리 이미지 -----*/}
+                <img src={`/img/imgg_${data}.svg`} style={{marginTop:'24%', width:'50%',height:'50%'}}></img> {/*----- 별자리 이미지 -----*/}
                 {/* <img src={back} style={{width:'120px',height:'30px', marginLeft:'27%',marginBottom:'-5%' }} onClick={NavPost}/> */}
-                <img src={back} onClick={NavPost} style={{width:"100px", height:"50px", marginLeft:'auto', marginRight: 'auto', }}/>
+                <img src={back} onClick={NavPost} style={{width:"100px", height:"50px" }}/>
             </div>
         
             {/* <section className='ThemeRight' style={{flexGrow: '7'}}> */}
@@ -160,8 +160,13 @@ const hideQuestionModal = () => {
           
             {/* <img src="/img/plus.png" style={{ display: 'block', marginLeft: 'auto', width:'30px', height:'30px',position: 'absolute', 
                 right: 0,}} onClick={showModal}/> */}
-            <img src="/img/plus.svg"  onClick={showModal}/>
-            <div className="question-list" style={{display:'flex',flexDirection:'column',zIndex:'2', height: '250px', overflowY: 'scroll',marginTop:'-10%'}}>{questionList}</div>
+            <img src="/img/plus.svg" style={{width:'40px', height:'40px',marginRight:'20%',marginTop:'10%'}}onClick={showModal}/> 
+            <div className="questions-list" style={{position:'relative',display:'flex',flexDirection:'column', height:'auto', overflowY: 'scroll',marginTop:'10%',marginRight:'30%' }}>
+          
+            <div className="question-list" style={{display:'flex',flexDirection:'column', height: '300px', overflowY: 'scroll',marginTop:'-20%'}}>
+              {questionList}
+            </div>
+            </div>
           </div> 
         </div>
       </div>
