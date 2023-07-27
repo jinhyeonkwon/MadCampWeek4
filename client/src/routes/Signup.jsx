@@ -127,8 +127,8 @@ function Signup(){
     <div className="column">
         <img className="MainPage"  src="/img/MainPage.png"></img>
     <div className="SignupContainer">
-            <span className="SignupTitle" style={{fontSize:'3rem',marginLeft:'10%'}}>서비스 이름</span>
-            <div className='SignupInputContainer' style={{marginLeft:'6%'}}>
+            <span className="SignupTitle" style={{fontSize:'5rem',marginLeft:'6%', fontFamily:'InkLipquid'}}>별의 회고록</span>
+            <div className='SignupInputContainer' style={{marginLeft:'3%'}}>
              <div className="SignupEmail">
             <span className="ModalSubTitle">이메일</span>
        <input type="email" className="ModalId"value={email} onChange={(e)=>{setEmail(e.target.value);

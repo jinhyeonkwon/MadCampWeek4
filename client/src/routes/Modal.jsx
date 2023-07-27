@@ -41,7 +41,7 @@ const NavSignup=()=>{
 }
     return(
         <div className="ModalContainer">
-            <span className="ModalTitle">서비스 이름</span>
+            <span className="ModalTitle">별의 회고록</span>
             <div className='ModalInputContainer'>
                 <div className='ModalID'>
                     <span className="ModalSubTitle">아이디</span>
