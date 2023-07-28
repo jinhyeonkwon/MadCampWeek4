@@ -4,7 +4,6 @@ import Modal from './Modal'
 import { useNavigate } from 'react-router-dom';
 function Signup2(){
   const navigate=useNavigate()
-  // const API_URL = "http://localhost:8000"
   const API_URL=process.env.API_URL;
   const [name,setName]=useState('')
    const [pw, setPw]=useState('')
@@ -79,7 +78,7 @@ function Signup2(){
     }
    
     try {
-      console.log(`Email : ${email}`);
+      //console.log(`Email : ${email}`);
       const response = await axios.post(`${API_URL}/signup/verify`, { email: email, name: name, userClass: userclass });
       if (response.data.match) {
         alert(response.data.message);
@@ -106,8 +105,8 @@ function Signup2(){
           const token = result.data.token;
           if (token) {
             localStorage.setItem('token', token); // 토큰을 localStorage에 저장
-            console.log('로그인에 성공하였습니다.');
-            console.log(token);
+            //console.log('로그인에 성공하였습니다.');
+            //console.log(token);
             
           
           } else {

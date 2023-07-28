@@ -11,7 +11,7 @@ if (process.env.ENVIRONMENT === "DEVELOPMENT") {
 const prisma = new PrismaClient()
 async function main() {
 
-  // 건물 table 초기 설정
+  // 인증 정보 초기 설정
   const userList = [
     ['name', 'email@a.com', 0],
   ]; 
@@ -40,6 +40,7 @@ main()
     process.exit(1)
   })
 
+// 질문 정보
 const questionList = [
   ['', 1] // 1 : 질문 카테고리
 ]

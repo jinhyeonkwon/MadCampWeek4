@@ -38,18 +38,18 @@ router.post('/', async (req, res) => {
      }
     
     );
-    console.log(user)
+    //console.log(user)
 
      
     // 토큰 생성
     const token = jwt.sign({ id:user.Id,name:user.Name,email:user.Email,class:user.Class}, process.env.SECRET_KEY, {
      expiresIn: '12h',})
    
-    console.log('회원가입 성공: ', { name, email, password });
-    res.status(200).json({ token }); // 토큰 전달
+    //console.log('회원가입 성공: ', { name, email, password });
+    return res.status(200).json({ token }); // 토큰 전달
   } catch (error) {
     console.error('회원가입 실패: ', error);
-    res.status(500).send();
+    return res.status(500).send();
   }
 
  }
@@ -58,7 +58,7 @@ router.post('/', async (req, res) => {
 
 router.post('/verify', async (req, res) => {
   try {
-    console.log(req.body);
+    //console.log(req.body);
     const email = req.body.email;
     const name = req.body.name;
     const userClass = req.body.userClass;
@@ -74,17 +74,17 @@ router.post('/verify', async (req, res) => {
      },
     });
     if(user && already_user){
-       res.json({match:false,message:"이미 등록된 사용자 입니다."})
+       return res.json({match:false,message:"이미 등록된 사용자 입니다."})
     }
     if (user && user.Name === name && user.Class === parseInt(userClass)) {
-     res.json({ match: true,message:"몰입 캠프 사용자 인증에 성공하였습니다." });
+     return res.json({ match: true,message:"몰입 캠프 사용자 인증에 성공하였습니다." });
      
     } else {
-     res.json({ match: false,message:"몰입 캠프 사용자가 아닙니다." });
+     return res.json({ match: false,message:"몰입 캠프 사용자가 아닙니다." });
     }
   } catch (error) {
     console.error('Error:', error);
-    res.status(500).json({ error: 'An error occurred' });
+    return res.status(500).json({ error: 'An error occurred' });
   }
  });
 

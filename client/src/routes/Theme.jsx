@@ -4,7 +4,7 @@ import Header from './ThemeHeader';
 import axios from 'axios';
 import image1 from '../assets/img/img_1.png';
 import back from '/img/back.svg';
-const API_URL = 'http://localhost:8000';
+const API_URL=process.env.API_URL;
 import Modals from './Modals';
 import './Theme.css';
 import '../css/CommentsModal.css';
@@ -31,7 +31,7 @@ function Theme() {
   const data = location.state.data;
   const getDecodedToken = () => {
     const asyncFun = async () => {
-      console.log(API_URL + '/post/getInfo');
+      //console.log(API_URL + '/post/getInfo');
       try {
         const response = await axios.post(
           API_URL + '/post/getInfo',
@@ -45,9 +45,9 @@ function Theme() {
         );
         const decodedToken = response.data.decodedToken;
         setUserId(decodedToken.id);
-        console.log(`userId : ${userId}`);
+        //console.log(`userId : ${userId}`);
       } catch (e) {
-        console.log(e);
+        //console.log(e);
       }
     };
     asyncFun();
@@ -58,7 +58,7 @@ function Theme() {
   };
 
   const getThatQuestion = async () => {
-    console.log(API_URL + '/post/getquestions');
+    //console.log(API_URL + '/post/getquestions');
     const response = await axios.post(
       API_URL + '/post/getquestions',
       {
@@ -73,15 +73,15 @@ function Theme() {
     );
 
     if (response.status === 200) {
-      console.log('getThatQuestion 성공');
-      console.log(response.data.questionList);
+      //console.log('getThatQuestion 성공');
+      //console.log(response.data.questionList);
       setQuestion(response.data.questionList);
     }
   };
 
   const getOneQuestion = async (questionId) => {
-    console.log('모달에서 질문 받기');
-    console.log(questionId);
+    //console.log('모달에서 질문 받기');
+    //console.log(questionId);
     const response = await axios.post(
       API_URL + '/post/getonequestion',
       {
@@ -95,8 +95,8 @@ function Theme() {
       }
     );
     if (response.status === 200) {
-      console.log('getOneQuestion 성공');
-      console.log(response.data.question);
+      //console.log('getOneQuestion 성공');
+      //console.log(response.data.question);
       setThatQuestion(response.data.question);
     }
   };
@@ -128,13 +128,13 @@ function Theme() {
 
     if (response.data.isOk) {
       setReload(!reload);
-      console.log('질문을 삭제하였습니다.');
+      //console.log('질문을 삭제하였습니다.');
     } else {
-      console.log('질문 삭제에 실패하였습니다.');
+      //console.log('질문 삭제에 실패하였습니다.');
     }
   };
   const NavPost = () => {
-    console.log('성공');
+    //console.log('성공');
     navigate('/post2');
   };
 
@@ -175,7 +175,7 @@ function Theme() {
         setQuestionModalClass('modal is-active');
       }}
     >
-      <form onSubmit={(event) => console.log(event)}>
+      <form>
         <div
           style={
             userId === question.AuthorId
@@ -203,7 +203,7 @@ function Theme() {
     </div>
     // </div>
   ));
-  console.log(questionList);
+  //console.log(questionList);
 
   // 모달 관련 ----------------------------
   const cardList = cList.map((comment) => (
@@ -255,7 +255,7 @@ function Theme() {
   ));
 
   const getComments = (questionId) => {
-    console.log(`getcomments: ${questionId}`);
+    //console.log(`getcomments: ${questionId}`);
     const asyncFun = async () => {
       const response = await axios.post(
         API_URL + '/post/getcomments',
@@ -271,8 +271,8 @@ function Theme() {
       );
 
       if (response.status === 200) {
-        console.log('getComments 성공');
-        console.log(`cList : ${cList}`);
+        //console.log('getComments 성공');
+        //console.log(`cList : ${cList}`);
         setCList(response.data.commentList);
       }
       if (response.status === 404) {
@@ -292,7 +292,7 @@ function Theme() {
   };
 
   const deleteComment = (event, id) => {
-    console.log('deleteComment');
+    //console.log('deleteComment');
     const asyncFun = async () => {
       const response = await axios.post(
         API_URL + '/post/deletecomment',
@@ -321,7 +321,7 @@ function Theme() {
       }
 
       if (response.status === 200) {
-        console.log('댓글 삭제 성공');
+        //console.log('댓글 삭제 성공');
         setReload(!reload);
         setModalReload(!modalReload); // 새로 로딩해라!
       }
@@ -330,7 +330,7 @@ function Theme() {
   };
 
   const createComment = (event, questionId) => {
-    console.log('createComment');
+    //console.log('createComment');
     const asyncFun = async () => {
       if (newContents.length < 1) return;
       const response = await axios.post(
@@ -346,10 +346,10 @@ function Theme() {
           },
         }
       );
-      console.log('제대로 받아왔나봐');
+      //console.log('제대로 받아왔나봐');
 
       if (response.status === 200) {
-        console.log('댓글 등록 성공');
+        //console.log('댓글 등록 성공');
         setNewContents('');
         setReload(!reload);
         setModalReload(!modalReload); // 새로 로딩해라!

@@ -8,7 +8,7 @@
     "start": "ENVIRONMENT=\"DEVELOPMENT\" node src",
     "production": "ENVIRONMENT=\"PRODUCTION\" node src",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prisma:migrate-dev": "dotenv -e .env.development prisma migrate dev",
+    "prisma:migrate-dev": "npx prisma migrate dev",
     "prisma:pull-dev": "dotenv -e .env.development prisma db pull",
     "prisma:pull-prod": "dotenv -e .env.production prisma db pull",
     "prisma:seed": "ENVIRONMENT=\"DEVELOPMENT\" npx prisma db seed"

@@ -21,12 +21,12 @@ import slide_image_8 from '/img/img_8.svg';
 function Post2() {
   const navigate = useNavigate();
   const NavTheme = (id) => {
-    console.log(id);
+    //console.log(id);
     navigate('/theme', { state: { data: id } });
   };
 
   const handleNavThemeClick = (id) => () => {
-    console.log('아이디는 ' + id);
+    //console.log('아이디는 ' + id);
     NavTheme(id);
   };
 
@@ -57,8 +57,6 @@ function Post2() {
         navigation
         pagination={{ clickable: true }}
         scrollbar={{ draggable: true }}
-        onSwiper={(swiper) => console.log(swiper)}
-        onSlideChange={() => console.log('slide change')}
         style={{marginTop:'20%'}}
       >
        

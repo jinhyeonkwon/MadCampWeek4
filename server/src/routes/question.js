@@ -7,7 +7,7 @@ const router = express.Router();
 
 // 요청
 router.post('/getquestions', async (req, res) => {
-  console.log('/question/getquestions');
+  //console.log('/question/getquestions');
   try {
     const authHeader = req.headers.authorization;
     if (authHeader) {
@@ -41,12 +41,12 @@ router.post('/getquestions', async (req, res) => {
 
   }
   catch (e) {
-    res.status(500).json({error : e});
+    return res.status(500).json({error : e});
   }
 });
 
 router.post('/createquestions', async (req, res) => {
-  console.log('/question/createquestions');
+  //console.log('/question/createquestions');
   try {
     const authHeader = req.headers.authorization;
     if (authHeader) {
@@ -87,7 +87,7 @@ router.post('/createquestions', async (req, res) => {
 });
   
 router.post('/deletequestions', async (req, res) => {
-  console.log('/question/deletequestions');
+  //console.log('/question/deletequestions');
   try {
     const authHeader = req.headers.authorization;
     if (authHeader) {
@@ -127,7 +127,7 @@ router.post('/deletequestions', async (req, res) => {
     
   }
   catch (e) {
-    res.status(500).json({error : e});
+    return res.status(500).json({error : e});
   }
 });
 

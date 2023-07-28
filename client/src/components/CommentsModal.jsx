@@ -4,10 +4,7 @@ import '../css/CommentsModal.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const port = process.env.EXPRESS_PORT;
 const API_URL = process.env.API_URL;
-const SECRET_KEY = process.env.SECRET_KEY;
-// const API_URL = 'http://localhost:8000';
 
 function Modal({ isOpen, qId, hideFn }) {
   const access_token = localStorage.getItem('token');
@@ -22,11 +19,11 @@ function Modal({ isOpen, qId, hideFn }) {
   const [userId, setUserId] = useState(0);
   let cardList;
 
-  console.log(`modal의 modalState: ${modalState}`);
+  //console.log(`modal의 modalState: ${modalState}`);
 
   const getDecodedToken = () => {
     const asyncFun = async () => {
-      console.log(API_URL + '/post/getInfo');
+      //(API_URL + '/post/getInfo');
       const response = await axios.post(
         API_URL + '/post/getInfo',
         {},
@@ -58,7 +55,7 @@ function Modal({ isOpen, qId, hideFn }) {
 
   const getThatQuestion = () => {
     const asyncFun = async () => {
-      console.log(API_URL + '/post/getonequestion');
+      //(API_URL + '/post/getonequestion');
       const response = await axios.post(
         API_URL + '/post/getonequestion',
         {
@@ -73,8 +70,8 @@ function Modal({ isOpen, qId, hideFn }) {
       );
 
       if (response.status === 200) {
-        console.log('getThatQuestion 성공');
-        console.log(response.data.question);
+        //console.log('getThatQuestion 성공');
+        //console.log(response.data.question);
         setQuestion(response.data.question);
       }
       if (response.status === 404) {
@@ -109,8 +106,8 @@ function Modal({ isOpen, qId, hideFn }) {
       );
 
       if (response.status === 200) {
-        console.log('getComments 성공');
-        console.log(`cList : ${cList}`);
+        //('getComments 성공');
+        //console.log(`cList : ${cList}`);
         setCList(response.data.commentList);
       }
       if (response.status === 404) {
@@ -130,7 +127,7 @@ function Modal({ isOpen, qId, hideFn }) {
   };
 
   const deleteComment = (event, id) => {
-    console.log('deleteComment');
+    //console.log('deleteComment');
     const asyncFun = async () => {
       const response = await axios.post(
         API_URL + '/post/deletecomment',
@@ -159,7 +156,7 @@ function Modal({ isOpen, qId, hideFn }) {
       }
 
       if (response.status === 200) {
-        console.log('댓글 삭제 성공');
+        //console.log('댓글 삭제 성공');
         setReload(reload === 0 ? 1 : 0); // 새로 로딩해라!
       }
     };
@@ -167,7 +164,7 @@ function Modal({ isOpen, qId, hideFn }) {
   };
 
   const createComment = (event, questionId) => {
-    console.log('createComment');
+    //console.log('createComment');
     const asyncFun = async () => {
       const response = await axios.post(
         API_URL + '/post/createcomments',
@@ -184,7 +181,7 @@ function Modal({ isOpen, qId, hideFn }) {
       );
 
       if (response.status === 200) {
-        console.log('댓글 등록 성공');
+        //('댓글 등록 성공');
         setNewContents('');
         setReload(reload === 0 ? 1 : 0); // 새로 로딩해라!
       }
@@ -208,9 +205,9 @@ function Modal({ isOpen, qId, hideFn }) {
     if (userId !== 0) {
       getDecodedToken();
       getThatQuestion();
-      console.log(`question : ${question}`);
+      //console.log(`question : ${question}`);
       getComments();
-      console.log(`cList : ${cList}`);
+      //console.log(`cList : ${cList}`);
     }
   }, [reload]);
 
@@ -260,7 +257,7 @@ function Modal({ isOpen, qId, hideFn }) {
   ));
 
   const closeModal = () => {
-    console.log('cloasModal');
+    //console.log('cloasModal');
     SetModalState(false);
     hideFn();
   };

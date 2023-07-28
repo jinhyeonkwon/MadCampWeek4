@@ -7,7 +7,7 @@ const router = express.Router();
 
 // 요청
 router.post('/getcomments', async (req, res) => {
-  console.log('/comment/getcomments');
+  //console.log('/comment/getcomments');
   try {
     const authHeader = req.headers.authorization;
     if (authHeader) {
@@ -56,7 +56,7 @@ router.post('/getcomments', async (req, res) => {
 });
 
 router.post('/createcomments', async (req, res) => {
-  console.log('/comment/createcomments');
+  //console.log('/comment/createcomments');
   const curr = new Date();
   const utc = curr.getTime() + 9*60*60*1000; // 한국 시간대 맞추려고..
   try {
@@ -109,7 +109,7 @@ router.post('/createcomments', async (req, res) => {
 });
 
 router.post('/deletecomments', async (req, res) => {
-  console.log('/comment/deletecomments');
+  //console.log('/comment/deletecomments');
   try {
     const authHeader = req.headers.authorization;
     if (authHeader) {

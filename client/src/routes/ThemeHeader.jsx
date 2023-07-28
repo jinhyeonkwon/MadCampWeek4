@@ -31,8 +31,8 @@ function ThemeHeader() {
       );
 
       if (response.status === 200) {
-        console.log('getThatQuestion 성공');
-        console.log(response.data.decodedToken);
+        //console.log('getThatQuestion 성공');
+        //console.log(response.data.decodedToken);
         setUserClass(response.data.decodedToken.class);
         setUserName(response.data.decodedToken.name);
       }

@@ -9,7 +9,7 @@ import CommentsModal from '../components/CommentsModal';
 const POSTS_PER_PAGE = 5
 
 function handleLogout() {
-  console.log("로그아웃");
+  //console.log("로그아웃");
 }
 
 const exampleCommentList = [{

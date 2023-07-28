@@ -4,7 +4,7 @@ import '../css/Login.css'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const API_URL = 'http://localhost:8000'
+const API_URL=process.env.API_URL;
 
 function Modal(){
   const navigate=useNavigate()
@@ -23,7 +23,7 @@ function Modal(){
               localStorage.setItem('token', token); // 토큰을 localStorage에 저장
     
               // 추가 작업 (리다이렉트, 상태 변경 등)
-              console.log('로그인에 성공하였습니다.');
+              //console.log('로그인에 성공하였습니다.');
               navigate('/post2')
             
             } else {
