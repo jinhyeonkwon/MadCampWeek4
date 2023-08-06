@@ -8,15 +8,18 @@
 
 ### 프로젝트 소개
 몰입캠프 일정이 끝나가고 있습니다. 질문을 통해 4주간의 추억을 돌아보고, 분반 사람들과 생각을 나눠보아요!
-![main](https://github.com/jinhyeonkwon/MadCampWeek4/assets/101591389/03adb47c-14f7-41f0-8219-476ad0d47533)
-![Uploading signup.png…]()
 
 <기능 목록>
 - 로그인 및 회원가입 (몰입캠프 참가자 인증)
-  
+  ![main](https://github.com/jinhyeonkwon/MadCampWeek4/assets/101591389/e31624d0-a108-4d40-a2f6-47a8973f0a1e)
+![signup](https://github.com/jinhyeonkwon/MadCampWeek4/assets/101591389/57cb9cb3-309a-4779-9a5a-90231b5b0248)
 - 주제 선택
+  ![post](https://github.com/jinhyeonkwon/MadCampWeek4/assets/101591389/a7fcddc4-df46-48f5-9124-94159a826469)
+![theme](https://github.com/jinhyeonkwon/MadCampWeek4/assets/101591389/1a83a031-63d1-402f-a3a0-a7f4969c5fb9)
 - 질문에 댓글 추가 및 삭제
+  ![comment](https://github.com/jinhyeonkwon/MadCampWeek4/assets/101591389/5366779b-6457-4bb2-ab0e-b03bbc3ea884)
 - 기본 질문 외에 새로운 질문 추가 및 삭제
+![newpost](https://github.com/jinhyeonkwon/MadCampWeek4/assets/101591389/6b6128b7-6d2f-4e91-a7aa-8fe735524252)
 
 ### 환경 설정 (Linux 기준)
 - Node.js v18.12를 사용합니다.
