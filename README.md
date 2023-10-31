@@ -23,7 +23,7 @@
 
 <details>
 <summary>ER diagram</summary>
-![image](https://github.com/jinhyeonkwon/MadCampWeek4/assets/121283722/0e894331-8450-4504-9c7b-e2e8c563f227)
+  <img src="https://github.com/jinhyeonkwon/MadCampWeek4/assets/121283722/0e894331-8450-4504-9c7b-e2e8c563f227"/>
 </details>
 
 ### 환경 설정 (Linux 기준)
