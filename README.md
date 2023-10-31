@@ -21,6 +21,11 @@
 - 기본 질문 외에 새로운 질문 추가 및 삭제
 ![newpost](https://github.com/jinhyeonkwon/MadCampWeek4/assets/101591389/6b6128b7-6d2f-4e91-a7aa-8fe735524252)
 
+<details>
+<summary>ER diagram</summary>
+![image](https://github.com/jinhyeonkwon/MadCampWeek4/assets/121283722/0e894331-8450-4504-9c7b-e2e8c563f227)
+</details>
+
 ### 환경 설정 (Linux 기준)
 - Node.js v18.12를 사용합니다.
 - 서버에 이 repository를 clone합니다.
